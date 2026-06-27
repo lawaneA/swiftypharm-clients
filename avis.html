@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donner votre avis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+      padding: 48px 36px 40px;
+      width: 100%;
+      max-width: 420px;
+      margin: 24px;
+      text-align: center;
+    }
+
+    /* ── ÉTAPE 1 : notation ── */
+    #step-rating { display: block; }
+    #step-form   { display: none; }
+    #step-thanks { display: none; }
+
+    .emoji {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .card h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0d2f3f;
+      margin-bottom: 8px;
+    }
+
+    .card .sub {
+      font-size: 14px;
+      color: #6b7c93;
+      margin-bottom: 32px;
+    }
+
+    /* ÉTOILES */
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .star {
+      font-size: 48px;
+      cursor: pointer;
+      color: #dde3ea;
+      transition: color 0.15s ease, transform 0.15s ease;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .star:hover,
+    .star.active {
+      color: #f5a623;
+      transform: scale(1.15);
+    }
+
+    .rating-label {
+      font-size: 13px;
+      color: #aab5c0;
+      height: 20px;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+
+    .btn-confirm {
+      width: 100%;
+      padding: 15px;
+      background: #0d2f3f;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .btn-confirm.ready {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .btn-confirm:hover {
+      background: #1a4a62;
+      transform: translateY(-1px);
+    }
+
+    /* ── ÉTAPE 2 : formulaire ── */
+    #step-form h1 { margin-bottom: 8px; }
+
+    .form-group {
+      text-align: left;
+      margin: 24px 0 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0d2f3f;
+      margin-bottom: 8px;
+    }
+
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e4eaf0;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #0d2f3f;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      min-height: 120px;
+    }
+
+    .form-group textarea:focus {
+      border-color: #0d2f3f;
+    }
+
+    .btn-send {
+      width: 100%;
+      padding: 15px;
+      background: #0d2f3f;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-send:hover {
+      background: #1a4a62;
+      transform: translateY(-1px);
+    }
+
+    /* ── ÉTAPE 3 : merci ── */
+    #step-thanks .emoji { font-size: 56px; }
+
+    /* Stars preview dans le form */
+    .stars-recap {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .stars-recap span {
+      font-size: 28px;
+      color: #f5a623;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- ÉTAPE 1 : noter -->
+  <div id="step-rating">
+    <span class="emoji">⭐</span>
+    <h1>Comment s'est passée votre visite ?</h1>
+    <p class="sub">Votre avis nous aide à mieux vous servir.</p>
+
+    <div class="stars" id="stars">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+
+    <div class="rating-label" id="rating-label"></div>
+
+    <button class="btn-confirm" id="btn-confirm">Confirmer →</button>
+  </div>
+
+  <!-- ÉTAPE 2 : formulaire (1-2-3 étoiles) -->
+  <div id="step-form">
+    <span class="emoji">🙏</span>
+    <h1>Aidez-nous à nous améliorer</h1>
+    <p class="sub">Merci de prendre le temps de nous faire part de votre expérience.</p>
+
+    <div class="stars-recap" id="stars-recap"></div>
+
+    <div class="form-group">
+      <label for="feedback">Qu'est-ce qui ne vous a pas satisfait ?</label>
+      <textarea id="feedback" placeholder="Décrivez votre expérience..."></textarea>
+    </div>
+
+    <button class="btn-send" id="btn-send">Envoyer mon retour</button>
+  </div>
+
+  <!-- ÉTAPE 3 : merci -->
+  <div id="step-thanks">
+    <span class="emoji">💚</span>
+    <h1>Merci pour votre retour !</h1>
+    <p class="sub">Votre avis a bien été transmis à notre équipe. Nous ferons tout pour nous améliorer.</p>
+  </div>
+
+</div>
+
+<script>
+  const labels = ['Très insatisfait', 'Insatisfait', 'Moyen', 'Satisfait', 'Très satisfait'];
+  const stars = document.querySelectorAll('.star');
+  const btnConfirm = document.getElementById('btn-confirm');
+  const ratingLabel = document.getElementById('rating-label');
+  let selected = 0;
+
+  // Hover
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const val = +star.dataset.value;
+      stars.forEach(s => s.classList.toggle('active', +s.dataset.value <= val));
+      ratingLabel.textContent = labels[val - 1];
+    });
+    star.addEventListener('mouseleave', () => {
+      stars.forEach(s => s.classList.toggle('active', +s.dataset.value <= selected));
+      ratingLabel.textContent = selected ? labels[selected - 1] : '';
+    });
+    star.addEventListener('click', () => {
+      selected = +star.dataset.value;
+      stars.forEach(s => s.classList.toggle('active', +s.dataset.value <= selected));
+      ratingLabel.textContent = labels[selected - 1];
+      btnConfirm.classList.add('ready');
+    });
+  });
+
+  // Confirmer
+  btnConfirm.addEventListener('click', () => {
+    if (!selected) return;
+
+    if (selected >= 4) {
+      // Redirection Google Avis
+      window.location.href = 'https://reviewthis.biz/HOMESFOOD';
+    } else {
+      // Afficher le formulaire
+      document.getElementById('step-rating').style.display = 'none';
+      const recap = document.getElementById('stars-recap');
+      recap.innerHTML = '';
+      for (let i = 1; i <= 5; i++) {
+        const s = document.createElement('span');
+        s.textContent = '★';
+        s.style.color = i <= selected ? '#f5a623' : '#dde3ea';
+        recap.appendChild(s);
+      }
+      document.getElementById('step-form').style.display = 'block';
+    }
+  });
+
+  // Envoyer
+  document.getElementById('btn-send').addEventListener('click', () => {
+    const feedback = document.getElementById('feedback').value.trim();
+    if (!feedback) {
+      document.getElementById('feedback').style.borderColor = '#e74c3c';
+      return;
+    }
+
+    // Envoi par mailto
+    const subject = encodeURIComponent('Avis client — ' + selected + ' étoile(s)');
+    const body = encodeURIComponent(
+      'Note : ' + selected + '/5\n\n' +
+      'Commentaire :\n' + feedback
+    );
+    window.location.href = 'mailto:lawane.adjid@gmail.com?subject=' + subject + '&body=' + body;
+
+    // Afficher merci
+    document.getElementById('step-form').style.display = 'none';
+    document.getElementById('step-thanks').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
