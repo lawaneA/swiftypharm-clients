@@ -6,6 +6,18 @@
   <title>Swift'Link</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH4392ZE5G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KH4392ZE5G');
+
+  // Événement personnalisé : ordonnance envoyée
+  function trackSend() { gtag('event', 'ordonnance_envoyee'); }
+</script>
+  
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script type="text/javascript">
      (function(){ emailjs.init("Apzn8FzYNZlXAQTs-"); })();
@@ -581,6 +593,7 @@
 
       emailjs.send('service_3svkyii', 'template_hlj4f0g', templateParams)
         .then(function() {
+          trackSend();
           playSound('success');
           formContent.style.display = 'none';
           successOverlay.style.display = 'flex';
