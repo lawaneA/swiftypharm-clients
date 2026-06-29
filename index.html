@@ -205,6 +205,28 @@
     }
     .file-trigger-zone:hover { background: rgba(255, 255, 255, 0.08); }
 
+    /* Bouton de suppression du fichier */
+.file-remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 30;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.file-remove-btn:hover { background: rgba(220, 60, 60, 0.55); }
+
     .file-trigger-zone input[type="file"] {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       opacity: 0; cursor: pointer; z-index: 20;
@@ -325,6 +347,9 @@
       </div>
 
       <div class="file-trigger-zone" id="drop-zone">
+  <button class="file-remove-btn" id="removeFileBtn" title="Supprimer le fichier">✕</button>   <!-- AJOUTÉ -->
+  <input type="file" id="fileInput" accept="image/*,application/pdf">
+          
         <input type="file" id="fileInput" accept="image/*,application/pdf">
         <div class="file-info-row">
           <div class="folder-icon-container">
@@ -384,30 +409,57 @@
     let selectedFile = null;
     
 
-   // 2. FORMATAGE AUTOMATIQUE DU TÉLÉPHONE (Déplacé au bon endroit)
-    if (phoneInput) {
-      phoneInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 10) value = value.substring(0, 10);
-        e.target.value = value.replace(/(\d{2})(?=\d)/g, '$1 ');
-      });
+   // 2. FORMATAGE AUTOMATIQUE DU TÉLÉPHONE
+if (phoneInput) {
+  phoneInput.addEventListener('input', function(e) {
+    let raw = e.target.value;
+
+    if (raw.startsWith('+33')) {
+      // Garde le +33 et formate le reste : +33 X XX XX XX XX
+      let digits = raw.replace(/^\+33/, '').replace(/\D/g, '').substring(0, 9);
+      let formatted = '+33';
+      if (digits.length > 0) formatted += ' ' + digits.substring(0, 1);
+      if (digits.length > 1) formatted += ' ' + digits.substring(1, 3);
+      if (digits.length > 3) formatted += ' ' + digits.substring(3, 5);
+      if (digits.length > 5) formatted += ' ' + digits.substring(5, 7);
+      if (digits.length > 7) formatted += ' ' + digits.substring(7, 9);
+      e.target.value = formatted;
+    } else {
+      let digits = raw.replace(/\D/g, '');
+      if (digits.startsWith('0') && digits.length > 10) digits = digits.substring(0, 10);
+      e.target.value = digits.replace(/(\d{2})(?=\d)/g, '$1 ');
     }
+  });
+}
 
-    // 3. GESTION DE L'AJOUT DE FICHIER
-    fileInput.addEventListener('change', function(e) {
-      selectedFile = e.target.files[0];
-      if (selectedFile) {
-        Title.innerText = selectedFile.name;
-        Subtitle.innerText = (selectedFile.size / (1024 * 1024)).toFixed(2) + ' MB';
-        
-        progressPanel.style.display = 'flex';
-        btnSend.style.display = 'block';
-        spinner.style.display = 'block';
-        
-        startSatisfyingLoading();
-      }
-    });
+// 3. GESTION DE L'AJOUT DE FICHIER
+const removeFileBtn = document.getElementById('removeFileBtn');
 
+fileInput.addEventListener('change', function(e) {
+  selectedFile = e.target.files[0];
+  if (selectedFile) {
+    Title.innerText = selectedFile.name;
+    Subtitle.innerText = (selectedFile.size / (1024 * 1024)).toFixed(2) + ' MB';
+    removeFileBtn.style.display = 'flex';
+    progressPanel.style.display = 'flex';
+    btnSend.style.display = 'block';
+    spinner.style.display = 'block';
+    startSatisfyingLoading();
+  }
+});
+
+removeFileBtn.addEventListener('click', function(e) {
+  e.stopPropagation(); // empêche d'ouvrir le sélecteur de fichier
+  selectedFile = null;
+  fileInput.value = '';
+  Title.innerText = 'Ajouter un document';
+  Subtitle.innerText = 'Sélectionnez votre ordonnance';
+  removeFileBtn.style.display = 'none';
+  progressPanel.style.display = 'none';
+  progressBarFill.style.width = '0%';
+  spinner.style.display = 'block';
+  btnSend.style.display = 'none';
+});
     // 4. ANIMATION DE LA BARRE DE PROGRESSION
     function startSatisfyingLoading() {
       const bar = document.getElementById('progressBarFill');
