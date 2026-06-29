@@ -38,28 +38,31 @@
       background-image: url('bg_blue-bule.jpg'); 
       background-repeat: no-repeat;
       background-attachment: fixed;
-      background-size: cover;
+      
+      /* 🚨 LA CORRECTION EST ICI : On force la hauteur à 130vh pour créer une marge de mouvement */
+      background-size: auto 130vh;
 
-    /* 1. Lancement de l'animation (60s = très lent, ease-in-out = fluide, infinite = en boucle) */
-      animation: bg-move-vertical 60s ease-in-out infinite;
+      /* J'ai mis 30s au lieu de 60s pour que tu voies bien le mouvement tout de suite. Tu pourras ralentir après ! */
+      animation: bg-move-vertical 30s ease-in-out infinite;
     }
 
     /* 2. Création du mouvement (Keyframes) */
     @keyframes bg-move-vertical {
       0% { 
-        background-position: center 0%; /* Position de départ : Tout en haut */
+        background-position: center 0%;
       }
       50% { 
-        background-position: center 100%; /* Au milieu de l'animation : descend tout en bas */
+        background-position: center 100%;
       }
       100% { 
-        background-position: center 0%; /* Fin de l'animation : remonte tout en haut */
+        background-position: center 0%;
       }
     }
 
-    @media (min-width: 481px) {
+   @media (min-width: 481px) {
       body {
-        background-size: 480px 100vh; 
+        /* 🚨 ICI AUSSI : On met 130vh pour que l'animation marche aussi sur PC */
+        background-size: 480px 130vh; 
       }
     }
 
