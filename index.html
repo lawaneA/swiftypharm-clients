@@ -504,21 +504,29 @@ removeFileBtn.addEventListener('click', function(e) {
         return;
       }
 
-      // Vérification des règles du téléphone
-      if (senderPhone.startsWith('0')) {
-        if (senderPhone.length !== 10 || !/^\d+$/.test(senderPhone)) {
-          alert("Le numéro commençant par 0 doit comporter exactement 10 chiffres.");
-          if(phoneInput) phoneInput.focus();
-          return;
-        }
-      } else {
-        if (!/^\d+$/.test(senderPhone) || senderPhone.length < 7) {
-          alert("Veuillez entrer un numéro de téléphone valide.");
-          if(phoneInput) phoneInput.focus();
-          return;
+      // Vérification des règles du téléphone (optionnel)
+      if (senderPhone.length > 0) {
+        if (senderPhone.startsWith('0')) {
+          if (senderPhone.length !== 10 || !/^\d+$/.test(senderPhone)) {
+            alert("Le numéro commençant par 0 doit comporter exactement 10 chiffres.");
+            if(phoneInput) phoneInput.focus();
+            return;
+          }
+        } else if (senderPhone.startsWith('+33')) {
+          const digits = senderPhone.replace(/^\+33/, '').replace(/\D/g, '');
+          if (digits.length !== 9) {
+            alert("Le numéro +33 doit comporter 9 chiffres après l'indicatif.");
+            if(phoneInput) phoneInput.focus();
+            return;
+          }
+        } else {
+          if (!/^\d+$/.test(senderPhone) || senderPhone.length < 7) {
+            alert("Veuillez entrer un numéro de téléphone valide.");
+            if(phoneInput) phoneInput.focus();
+            return;
+          }
         }
       }
-
       if (!selectedFile) {
         alert("Veuillez sélectionner un fichier.");
         return;
