@@ -242,7 +242,10 @@
     .status-text { color: #ffffff; font-size: 14px; }
     .percentage { color: #ffffff; font-size: 18px; font-weight: 700; }
     .progress-bar-bg { width: 100%; height: 6px; background: #1a1a2e; border-radius: 10px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ffffff, #ccccee); border-radius: 10px; box-shadow: 0 0 10px rgba(255, 255, 255, 0.4); transition: width 0.8s ease; }
+    .progress-bar-fill {height: 100%;width: 0%;background: linear-gradient(90deg, #ffffff, #ccccee);border-radius: 10px;
+  /* On enlève la durée fixe ici pour la gérer en JS */
+  transition: width 0.5s ease-out; }
+    
     @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     /* Bouton d'envoi EmailJS */
@@ -379,27 +382,61 @@
     let selectedFile = null;
     
 
-    // Quand un fichier est sélectionné
-    fileInput.addEventListener('change', function(e) {
-      selectedFile = e.target.files[0];
-      if (selectedFile) {
-        Title.innerText = selectedFile.name;
-        Subtitle.innerText = (selectedFile.size / (1024 * 1024)).toFixed(2) + ' MB';
-        
-        // Affiche la barre et le bouton
-        progressPanel.style.display = 'flex';
-        btnSend.style.display = 'block';
-        
-        // Animation fluide de la barre (simulation de préparation)
-        setTimeout(() => {
-          progressBarFill.style.width = '100%';
-          percentageText.innerText = '100%';
-          statusText.innerText = 'Fichier prêt !';
-          spinner.style.display = 'none';
-        }, 100);
-      }
-    });
+    // 1. L'écouteur d'événement (à mettre dans ton script)
+fileInput.addEventListener('change', function(e) {
+  selectedFile = e.target.files[0];
+  if (selectedFile) {
+    // Mise à jour du texte (Vérifie bien que ces IDs correspondent à ton HTML)
+    uploadTitle.innerText = selectedFile.name;
+    uploadSubtitle.innerText = (selectedFile.size / (1024 * 1024)).toFixed(2) + ' MB';
+    
+    // Affiche le panneau et le bouton
+    progressPanel.style.display = 'flex';
+    btnSend.style.display = 'block';
+    spinner.style.display = 'block';
+    
+    // Lancement de l'animation satisfaisante
+    startSatisfyingLoading();
+  }
+});
 
+// 2. La nouvelle fonction d'animation (à mettre juste en dessous)
+function startSatisfyingLoading() {
+  const bar = document.getElementById('progressBarFill');
+  const percentText = document.getElementById('percentage');
+  const statusText = document.getElementById('statusText');
+  const spinner = document.getElementById('spinner');
+
+  // Initialisation
+  bar.style.transition = "none";
+  bar.style.width = "0%";
+  percentText.innerText = "0%";
+  statusText.innerText = "Préparation...";
+
+  // Étape 1 : Rapide jusqu'à 50% (0.5 seconde)
+  requestAnimationFrame(() => {
+    bar.style.transition = "width 0.5s ease-out";
+    bar.style.width = "50%";
+    percentText.innerText = "50%";
+    statusText.innerText = "Téléchargement...";
+  });
+
+  // Étape 2 : Ralentissement jusqu'à 75% (2.5 secondes)
+  setTimeout(() => {
+    bar.style.transition = "width 2.5s ease-in-out";
+    bar.style.width = "75%";
+    percentText.innerText = "75%";
+  }, 500); 
+
+  // Étape 3 : Accélération finale jusqu'à 100% (0.4 seconde)
+  setTimeout(() => {
+    bar.style.transition = "width 0.4s ease-in";
+    bar.style.width = "100%";
+    percentText.innerText = "100%";
+    statusText.innerText = "Fichier prêt !";
+    if (spinner) spinner.style.display = 'none';
+  }, 3000); 
+}
     // Fonction d'envoi EmailJS
     function sendWithAttachment() {
       const nameInput = document.getElementById('sender-name');
