@@ -339,9 +339,6 @@
           <label for="sender-phone">Téléphone — pour vous rappeler si besoin :</label>
           <input type="tel" id="sender-phone" autocomplete="tel" placeholder="06 12 34 56 78">
           <div class="field-error-msg" id="phone-error">Format invalide.</div>
-
-          <label for="sender-message">Un message pour la pharmacie ? (optionnel)</label>
-          <textarea id="sender-message" placeholder="Ex: Urgent, substitution acceptée..."></textarea>
         </div>
 
         <div class="file-trigger-zone" id="drop-zone">
@@ -623,7 +620,6 @@
   function sendWithAttachment() {
     const senderName    = nameInput ? nameInput.value.trim() : "";
     const senderPhone   = phoneInput ? phoneInput.value.trim().replace(/\s+/g, '') : "";
-    const senderMessage = document.getElementById('sender-message') ? document.getElementById('sender-message').value.trim() : "";
 
     if (!senderName) {
       nameInput.classList.add('input-error');
@@ -645,7 +641,6 @@
       const templateParams = {
         name_sender:    senderName,
         phone_sender:   senderPhone || "Non renseigné",
-        message_sender: senderMessage || "Aucun message",
         file_name:      selectedFile.name,
         my_file:        reader.result,
         sent_at:        new Date().toLocaleString('fr-FR')
