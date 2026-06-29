@@ -145,15 +145,38 @@
     /* ======================================================= */
     /* NOUVEAU COMPOSANT D'UPLOAD PREMIUM (STYLE FONCÉ)      */
     /* ======================================================= */
-    .upload-container {
-      grid-column: 1 / -1; 
+   .upload-container {
+      grid-column: 1 / -1;
       width: 100%;
-      background: radial-gradient(circle at 50% 30%, #11122b 0%, #080818 80%);
       border-radius: 28px;
       padding: 24px;
       box-sizing: border-box;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 0 24px rgba(42, 95, 255, 0.08);
       position: relative;
+      overflow: hidden;
+      /* Glass layers inline (pas de glass-card wrapper ici) */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: var(--lg-bg);
+      /* Même contour lumineux que les autres cards */
+      background-image:
+        linear-gradient(135deg,
+          rgba(255,255,255,0.765) 0%,
+          rgba(255,255,255,0.765) 12%,
+          rgba(100,160,255,0.28) 28%,
+          rgba(100,160,255,0.18) 55%,
+          rgba(100,160,255,0.28) 72%,
+          rgba(255,255,255,0.722) 88%,
+          rgba(255,255,255,0.722) 100%
+        );
+      background-clip: padding-box;
+      border: 1.5px solid transparent;
+      /* Contour en pseudo-élément via box-shadow interne */
+      box-shadow:
+        inset 1px 1px 0 rgba(255,255,255,0.70),
+        inset 0 0 8px rgba(255,255,255,0.70),
+        0 8px 32px rgba(0,0,0,0.25);
+      /* Réinitialise le background-image pour ne garder que le fond glass */
+      background: var(--lg-bg);
     }
 
     /* Champs de saisie intégrés au style sombre */
