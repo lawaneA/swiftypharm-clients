@@ -406,20 +406,6 @@
       const senderName = nameInput ? nameInput.value.trim() : "";
       const senderPhone = phoneInput ? phoneInput.value.trim().replace(/\s+/g, '') : "";
 
-      // Vérification
-if (phoneInput.startsWith('0')) {
-  // Si ça commence par 0, il faut exactement 10 chiffres
-  if (phoneInput.length !== 10 || !/^\d+$/.test(phoneInput)) {
-    alert("Le numéro saisi doit comporter 10 chiffres.");
-    return; // Stop l'envoi
-  }
-} else {
-  // Sinon, on vérifie juste que ce sont bien des chiffres
-  if (!/^\d+$/.test(phoneInput) || phoneInput.length < 7) {
-    alert("Veuillez entrer un numéro de téléphone valide.");
-    return; // Stop l'envoi
-  }
-}
 
       if (!senderName) {
         alert("Veuillez renseigner votre Nom et Prénom.");
