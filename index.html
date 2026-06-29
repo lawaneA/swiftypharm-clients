@@ -407,15 +407,16 @@
       const senderName = nameInput ? nameInput.value.trim() : "";
       const senderPhone = phoneInput ? phoneInput.value.trim().replace(/\s+/g, '') : "";
       
-      phoneInput.addEventListener('input', (e) => {
-    
-        // 3. On ajoute l'espace tous les 2 chiffres
-        // Le regex regarde par groupe de 2 et ajoute un espace derrière
-        let formatted = value.replace(/(\d{2})(?=\d)/g, '$1 ');
-        
-        // 4. On met à jour le champ
-        e.target.value = formatted;
-    });
+        phoneInput.addEventListener('input', function(e) {
+  // 1. On nettoie tout ce qui n'est pas un chiffre
+  let value = e.target.value.replace(/\D/g, '');
+  
+  // 2. On limite à 10 chiffres
+  if (value.length > 10) value = value.substring(0, 10);
+  
+  // 3. On formate en ajoutant un espace tous les 2 chiffres
+  e.target.value = value.replace(/(\d{2})(?=\d)/g, '$1 ');
+});
 
       if (!senderName) {
         alert("Veuillez renseigner votre Nom et Prénom.");
