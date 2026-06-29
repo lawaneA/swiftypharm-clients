@@ -472,7 +472,7 @@
       if (e.dataTransfer.files[0]) showFile(e.dataTransfer.files[0]);
     });
 
-// ── Envoi ultra-simplifié via FormSubmit ──
+// ── Envoi ultra-simplifié via FormSubmit (AVEC fichier) ──
 function sendWithAttachment() {
   const nameInput = document.getElementById('sender-name');
   const emailInput = document.getElementById('sender-email');
@@ -497,40 +497,71 @@ function sendWithAttachment() {
   btnSend.style.opacity = "0.6";
   btnSend.disabled = true;
 
-  // 3. Préparation du "vrai" paquet avec le vrai fichier
-  const formData = new FormData();
-  formData.append("Nom_du_patient", senderName);
-  formData.append("Email_du_patient", senderEmail);
-  formData.append("Ordonnance", selectedFile); // On envoie le vrai fichier direct !
-  
-  // Options pour que le mail soit beau et silencieux (sans changer de page)
-  formData.append("_captcha", "false"); 
-  formData.append("_template", "table");
+  // 3. Création d'une fenêtre invisible pour envoyer sans recharger la page
+  let iframe = document.getElementById('hidden_iframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = 'hidden_iframe';
+    iframe.id = 'hidden_iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
 
-  // 4. Envoi direct vers ta boîte mail (⚠️ MODIFIE L'ADRESSE CI-DESSOUS ⚠️)
-  fetch("https://formsubmit.co/ajax/fouedpharma@gmail.com", {
-    method: "POST",
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-      alert("Succès ! L'ordonnance a bien été envoyée.");
-      // Nettoyage après succès
-      clearFile(); 
-      if(nameInput) nameInput.value = "";
-      if(emailInput) emailInput.value = "";
-  })
-  .catch(error => {
-      console.error("Erreur :", error);
-      alert("Erreur lors de l'envoi. Veuillez réessayer.");
-  })
-  .finally(() => {
-      // Remise à zéro du bouton
-      btnSend.textContent = "Envoyer par mail";
-      btnSend.style.opacity = "1";
-      btnSend.disabled = false;
-      if (selectedFile) btnSend.classList.add('ready');
-  });
+  // 4. Création d'un formulaire classique virtuel
+  const form = document.createElement('form');
+  form.method = 'POST';
+  // ⚠️ N'OUBLIE PAS DE METTRE TON ADRESSE MAIL CI-DESSOUS ⚠️
+  form.action = 'https://formsubmit.co/TON_ADRESSE_EMAIL@GMAIL.COM'; 
+  form.enctype = 'multipart/form-data'; // Indispensable pour les pièces jointes
+  form.target = 'hidden_iframe'; // Dirige l'envoi vers la fenêtre invisible
+
+  // 5. Ajout des informations textuelles
+  const fields = {
+    "Nom_du_patient": senderName,
+    "Email_du_patient": senderEmail,
+    "_captcha": "false",
+    "_template": "table"
+  };
+
+  for (const key in fields) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = fields[key];
+    form.appendChild(input);
+  }
+
+  // 6. Ajout de la véritable pièce jointe
+  const fileInputHidden = document.createElement('input');
+  fileInputHidden.type = 'file';
+  fileInputHidden.name = 'Ordonnance'; // C'est le nom du fichier dans ton mail
+  
+  // Astuce JS pour cloner le fichier sélectionné
+  const dataTransfer = new DataTransfer();
+  dataTransfer.items.add(selectedFile);
+  fileInputHidden.files = dataTransfer.files;
+  form.appendChild(fileInputHidden);
+
+  document.body.appendChild(form);
+
+  // 7. Ce qu'il se passe quand l'envoi est terminé
+  iframe.onload = function() {
+    alert("Succès ! L'ordonnance a bien été envoyée avec sa pièce jointe.");
+    
+    // Nettoyage après succès
+    clearFile(); 
+    if(nameInput) nameInput.value = "";
+    if(emailInput) emailInput.value = "";
+    
+    btnSend.textContent = "Envoyer par mail";
+    btnSend.style.opacity = "1";
+    btnSend.disabled = false;
+    
+    form.remove(); // On supprime le formulaire virtuel
+  };
+
+  // 8. On clique sur le bouton "Envoyer" de notre formulaire invisible
+  form.submit();
 }
     
   </script>
