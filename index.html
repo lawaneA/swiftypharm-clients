@@ -8,12 +8,6 @@
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   
-  <script type="text/javascript">
-     (function(){
-        // ⚠️ ENLÈVE LE TEXTE CI-DESSOUS ET COPIE TA PUBLIC KEY DEPUIS EMAILJS ⚠️
-        emailjs.init("Apzn8FzYNZlXAQTs-");
-     })();
-  </script>
 
   <svg style="position:absolute;width:0;height:0;" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -478,19 +472,18 @@
       if (e.dataTransfer.files[0]) showFile(e.dataTransfer.files[0]);
     });
 
-    // ── Envoi avec pièce jointe réelle ──
-    function sendWithAttachment() {
-  // 1. On récupère le champ Nom/Prénom et sa valeur
+// ── Envoi ultra-simplifié via FormSubmit ──
+function sendWithAttachment() {
   const nameInput = document.getElementById('sender-name');
-  const senderName = nameInput ? nameInput.value.trim() : "";
-
   const emailInput = document.getElementById('sender-email');
+
+  const senderName = nameInput ? nameInput.value.trim() : "";
   const senderEmail = emailInput ? emailInput.value.trim() : "";
 
-  // 2. Vérifications de sécurité (Fichier + Nom)
+  // 1. Vérifications de sécurité
   if (!senderName) {
     alert("Veuillez renseigner votre Nom et Prénom avant d'envoyer.");
-    if(nameInput) nameInput.focus(); // Remet le curseur sur le champ vide
+    if(nameInput) nameInput.focus();
     return;
   }
 
@@ -499,53 +492,45 @@
     return;
   }
 
-  // 3. Animation du bouton de chargement
+  // 2. Animation du bouton
   btnSend.textContent = "Envoi en cours...";
   btnSend.style.opacity = "0.6";
   btnSend.disabled = true;
 
-  // 4. Lecture et conversion du fichier en Base64
-  const reader = new FileReader();
-  reader.readAsDataURL(selectedFile);
+  // 3. Préparation du "vrai" paquet avec le vrai fichier
+  const formData = new FormData();
+  formData.append("Nom_du_patient", senderName);
+  formData.append("Email_du_patient", senderEmail);
+  formData.append("Ordonnance", selectedFile); // On envoie le vrai fichier direct !
+  
+  // Options pour que le mail soit beau et silencieux (sans changer de page)
+  formData.append("_captcha", "false"); 
+  formData.append("_template", "table");
 
-  reader.onload = function () {
-    const base64File = reader.result;
-
-    // 5. On prépare TOUTES les variables pour le template EmailJS
-    const templateParams = {
-      name_sender: senderName,      // <-- Remplira {{name_sender}} sur EmailJS
-      file_name: selectedFile.name,  // <-- Remplira {{file_name}}
-      file_link: base64File,            // <-- Remplira la pièce jointe
-      email_sender: senderEmail     // <-- AJOUT : Remplira {{email_sender}} sur EmailJS
-    };
-
-    // 6. Envoi officiel à l'API
-    // ⚠️ Remplace par ton Service ID et ton Template ID
-    emailjs.send('service_3svkyii', 'template_hlj4f0g', templateParams)
-      .then(function(response) {
-         alert("Succès ! L'ordonnance de " + senderName + " a bien été envoyée.");
-         
-         // On vide le fichier ET le champ texte après succès
-         clearFile(); 
-         if(nameInput) nameInput.value = "";
-         if(emailInput) emailInput.value = "";
-      }, function(error) {
-         console.error("Échec EmailJS :", error);
-         alert("Erreur lors de l'envoi. Veuillez réessayer.");
-      })
-      .finally(() => {
-         // On remet le bouton à son état initial
-         btnSend.textContent = "Envoyer par mail";
-         btnSend.style.opacity = "1";
-         btnSend.disabled = false;
-         if (selectedFile) btnSend.classList.add('ready');
-      });
-  };
-
-  reader.onerror = function (error) {
-    console.error("Erreur de lecture :", error);
-    alert("Impossible de lire le fichier.");
-  };
+  // 4. Envoi direct vers ta boîte mail (⚠️ MODIFIE L'ADRESSE CI-DESSOUS ⚠️)
+  fetch("https://formsubmit.co/ajax/fouedpharma@gmail.com", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+      alert("Succès ! L'ordonnance a bien été envoyée.");
+      // Nettoyage après succès
+      clearFile(); 
+      if(nameInput) nameInput.value = "";
+      if(emailInput) emailInput.value = "";
+  })
+  .catch(error => {
+      console.error("Erreur :", error);
+      alert("Erreur lors de l'envoi. Veuillez réessayer.");
+  })
+  .finally(() => {
+      // Remise à zéro du bouton
+      btnSend.textContent = "Envoyer par mail";
+      btnSend.style.opacity = "1";
+      btnSend.disabled = false;
+      if (selectedFile) btnSend.classList.add('ready');
+  });
 }
     
   </script>
