@@ -42,6 +42,23 @@
       background-size: cover; 
     }
 
+    /* 1. Lancement de l'animation (60s = très lent, ease-in-out = fluide, infinite = en boucle) */
+      animation: bg-move-vertical 60s ease-in-out infinite;
+    }
+
+    /* 2. Création du mouvement (Keyframes) */
+    @keyframes bg-move-vertical {
+      0% { 
+        background-position: center 0%; /* Position de départ : Tout en haut */
+      }
+      50% { 
+        background-position: center 100%; /* Au milieu de l'animation : descend tout en bas */
+      }
+      100% { 
+        background-position: center 0%; /* Fin de l'animation : remonte tout en haut */
+      }
+    }
+
     @media (min-width: 481px) {
       body {
         background-size: 480px 100vh; 
