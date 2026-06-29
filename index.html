@@ -378,83 +378,74 @@
     const statusText = document.getElementById('statusText');
     const spinner = document.getElementById('spinner');
     const btnSend = document.getElementById('btn-send');
+    const phoneInput = document.getElementById('sender-phone'); // AJOUTÉ ICI
+    const nameInput = document.getElementById('sender-name');   // AJOUTÉ ICI
     
     let selectedFile = null;
     
 
-    // 1. L'écouteur d'événement (à mettre dans ton script)
-fileInput.addEventListener('change', function(e) {
-  selectedFile = e.target.files[0];
-  if (selectedFile) {
-    // Mise à jour du texte (Vérifie bien que ces IDs correspondent à ton HTML)
-    uploadTitle.innerText = selectedFile.name;
-    uploadSubtitle.innerText = (selectedFile.size / (1024 * 1024)).toFixed(2) + ' MB';
-    
-    // Affiche le panneau et le bouton
-    progressPanel.style.display = 'flex';
-    btnSend.style.display = 'block';
-    spinner.style.display = 'block';
-    
-    // Lancement de l'animation satisfaisante
-    startSatisfyingLoading();
-  }
-});
+   // 2. FORMATAGE AUTOMATIQUE DU TÉLÉPHONE (Déplacé au bon endroit)
+    if (phoneInput) {
+      phoneInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 10) value = value.substring(0, 10);
+        e.target.value = value.replace(/(\d{2})(?=\d)/g, '$1 ');
+      });
+    }
 
-// 2. La nouvelle fonction d'animation (à mettre juste en dessous)
-function startSatisfyingLoading() {
-  const bar = document.getElementById('progressBarFill');
-  const percentText = document.getElementById('percentage');
-  const statusText = document.getElementById('statusText');
-  const spinner = document.getElementById('spinner');
+    // 3. GESTION DE L'AJOUT DE FICHIER
+    fileInput.addEventListener('change', function(e) {
+      selectedFile = e.target.files[0];
+      if (selectedFile) {
+        Title.innerText = selectedFile.name;
+        Subtitle.innerText = (selectedFile.size / (1024 * 1024)).toFixed(2) + ' MB';
+        
+        progressPanel.style.display = 'flex';
+        btnSend.style.display = 'block';
+        spinner.style.display = 'block';
+        
+        startSatisfyingLoading();
+      }
+    });
 
-  // Initialisation
-  bar.style.transition = "none";
-  bar.style.width = "0%";
-  percentText.innerText = "0%";
-  statusText.innerText = "Préparation...";
+    // 4. ANIMATION DE LA BARRE DE PROGRESSION
+    function startSatisfyingLoading() {
+      const bar = document.getElementById('progressBarFill');
+      const percentText = document.getElementById('percentage');
+      const statusText = document.getElementById('statusText');
+      const spinnerEl = document.getElementById('spinner');
 
-  // Étape 1 : Rapide jusqu'à 50% (0.5 seconde)
-  requestAnimationFrame(() => {
-    bar.style.transition = "width 0.5s ease-out";
-    bar.style.width = "50%";
-    percentText.innerText = "50%";
-    statusText.innerText = "Téléchargement...";
-  });
+      bar.style.transition = "none";
+      bar.style.width = "0%";
+      percentText.innerText = "0%";
+      statusText.innerText = "Préparation...";
 
-  // Étape 2 : Ralentissement jusqu'à 75% (2.5 secondes)
-  setTimeout(() => {
-    bar.style.transition = "width 2.5s ease-in-out";
-    bar.style.width = "75%";
-    percentText.innerText = "75%";
-  }, 500); 
+      requestAnimationFrame(() => {
+        bar.style.transition = "width 0.5s ease-out";
+        bar.style.width = "50%";
+        percentText.innerText = "50%";
+        statusText.innerText = "Téléchargement...";
+      });
 
-  // Étape 3 : Accélération finale jusqu'à 100% (0.4 seconde)
-  setTimeout(() => {
-    bar.style.transition = "width 0.4s ease-in";
-    bar.style.width = "100%";
-    percentText.innerText = "100%";
-    statusText.innerText = "Fichier prêt !";
-    if (spinner) spinner.style.display = 'none';
-  }, 3000); 
-}
-    // Fonction d'envoi EmailJS
+      setTimeout(() => {
+        bar.style.transition = "width 2.5s ease-in-out";
+        bar.style.width = "75%";
+        percentText.innerText = "75%";
+      }, 500); 
+
+      setTimeout(() => {
+        bar.style.transition = "width 0.4s ease-in";
+        bar.style.width = "100%";
+        percentText.innerText = "100%";
+        statusText.innerText = "Fichier prêt !";
+        if (spinnerEl) spinnerEl.style.display = 'none';
+      }, 3000); 
+    }
+
+    // 5. FONCTION D'ENVOI (EMAILJS)
     function sendWithAttachment() {
-      const nameInput = document.getElementById('sender-name');
-      const phoneInput = document.getElementById('sender-phone');
-      
       const senderName = nameInput ? nameInput.value.trim() : "";
       const senderPhone = phoneInput ? phoneInput.value.trim().replace(/\s+/g, '') : "";
-      
-        phoneInput.addEventListener('input', function(e) {
-  // 1. On nettoie tout ce qui n'est pas un chiffre
-  let value = e.target.value.replace(/\D/g, '');
-  
-  // 2. On limite à 10 chiffres
-  if (value.length > 10) value = value.substring(0, 10);
-  
-  // 3. On formate en ajoutant un espace tous les 2 chiffres
-  e.target.value = value.replace(/(\d{2})(?=\d)/g, '$1 ');
-});
 
       if (!senderName) {
         alert("Veuillez renseigner votre Nom et Prénom.");
@@ -462,19 +453,34 @@ function startSatisfyingLoading() {
         return;
       }
 
+      // Vérification des règles du téléphone
+      if (senderPhone.startsWith('0')) {
+        if (senderPhone.length !== 10 || !/^\d+$/.test(senderPhone)) {
+          alert("Le numéro commençant par 0 doit comporter exactement 10 chiffres.");
+          if(phoneInput) phoneInput.focus();
+          return;
+        }
+      } else {
+        if (!/^\d+$/.test(senderPhone) || senderPhone.length < 7) {
+          alert("Veuillez entrer un numéro de téléphone valide.");
+          if(phoneInput) phoneInput.focus();
+          return;
+        }
+      }
+
       if (!selectedFile) {
         alert("Veuillez sélectionner un fichier.");
         return;
       }
 
-      // Animation du bouton pendant l'envoi
+      // Bouton en mode "chargement"
       btnSend.textContent = "Envoi en cours...";
       btnSend.style.opacity = "0.6";
       btnSend.disabled = true;
 
+      // Lecture et envoi à EmailJS
       const reader = new FileReader();
       reader.readAsDataURL(selectedFile);
-
       reader.onload = function () {
         const base64File = reader.result;
 
@@ -485,7 +491,6 @@ function startSatisfyingLoading() {
           my_file: base64File
         };
 
-        // ⚠️ N'oublie pas de vérifier tes identifiants EmailJS ici si besoin ⚠️
         emailjs.send('service_3svkyii', 'template_hlj4f0g', templateParams)
           .then(function(response) {
              alert("Succès ! L'ordonnance de " + senderName + " a bien été envoyée.");
@@ -513,7 +518,7 @@ function startSatisfyingLoading() {
              btnSend.disabled = false;
           });
       };
-
+      
       reader.onerror = function (error) {
         console.error("Erreur de lecture :", error);
         alert("Impossible de lire le fichier.");
@@ -522,7 +527,6 @@ function startSatisfyingLoading() {
         btnSend.disabled = false;
       };
     }
-  </script>
-
+</script>
 </body>
 </html>
