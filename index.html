@@ -35,27 +35,29 @@
   <style>
     :root { --lg-bg: rgba(255,255,255,0.12); --lg-hi: rgba(255,255,255,0.70); }
     * { margin:0; padding:0; box-sizing:border-box; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 32px 16px 64px;
-      background-color: #030a1c;
-      background-image: url('bg_blue-bule.jpg');
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: auto 130vh;
-      animation: bg-move-vertical 30s ease-in-out infinite;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 32px 16px 64px;
+  background-color: #030a1c;
+  background-image: url('bg-swiftlink.jpg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  /* On retire 'fixed' qui pose problème sur mobile */
+}
     @keyframes bg-move-vertical {
       0%   { background-position: center 0%; }
       50%  { background-position: center 100%; }
       100% { background-position: center 0%; }
     }
-    @media (min-width: 481px) {
-      body { background-size: 480px 130vh; }
-    }
+   @media (min-width: 481px) {
+  body {
+    background-attachment: fixed;
+    background-size: 480px 100vh;
+  }
+}
 
     /* ══ GLASS ══ */
     .glass-card {
