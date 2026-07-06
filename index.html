@@ -6,383 +6,416 @@
   <title>Swift'Link</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 
-
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH4392ZE5G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-KH4392ZE5G');
-
-  // Événement personnalisé : ordonnance envoyée
-  function trackSend() { gtag('event', 'ordonnance_envoyee'); }
-</script>
-  
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script type="text/javascript">
-     (function(){ emailjs.init("Apzn8FzYNZlXAQTs-"); })();
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KH4392ZE5G');
+    function trackSend() { gtag('event', 'ordonnance_envoyee'); }
   </script>
 
-  <svg style="position:absolute;width:0;height:0;" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <filter id="lg-dist" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="5" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-    </defs>
-  </svg>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){ emailjs.init("Apzn8FzYNZlXAQTs-"); })();
+  </script>
 
   <style>
-    :root { --lg-bg: rgba(255,255,255,0.12); --lg-hi: rgba(255,255,255,0.70); }
     * { margin:0; padding:0; box-sizing:border-box; }
-body {
+
+    body {
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 32px 16px 64px;
-      background-color: #030a1c; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 16px 64px;
+      background-color: #e7e7e5;
+    }
+
+    /* ══ HEADER PROFIL ══ */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      width: 100%;
+      max-width: 480px;
+    }
+    .profile-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #0012ff;
       background-image: url('bg-swiftlink.png'); 
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      
-      background-size: auto 130vh;
 
-      /* J'ai mis 30s au lieu de 60s pour que tu voies bien le mouvement tout de suite. Tu pourras ralentir après ! */
-      animation: bg-move-vertical 30s ease-in-out infinite;
+      /* ⚠️ IMPORTER : logo de la pharmacie (photo de profil ronde) */
     }
-    @keyframes bg-move-vertical {
-      0%   { background-position: center 0%; }
-      50%  { background-position: center 100%; }
-      100% { background-position: center 0%; }
+    .profile-name {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: -0.5px;
+      text-align: center;
     }
-    @media (min-width: 481px) {
-      body {
-        /* 🚨 ICI AUSSI : On met 130vh pour que l'animation marche aussi sur PC */
-        background-size: 480px 130vh; 
-      }
+    .profile-sub {
+      font-size: 15px;
+      color: #555;
+      font-weight: 400;
+      text-align: center;
     }
 
-    /* ══ GLASS ══ */
-    .glass-card {
-      position:relative; border-radius:28px; overflow:hidden;
-      transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,2.2), box-shadow 0.3s ease;
+    /* ══ ICÔNES DE CONTACT (style Linktree) ══ */
+    .contact-icons {
+      display: flex;
+      gap: 16px;
+      margin-top: 6px;
+      align-items: center;
+      justify-content: center;
     }
-    .glass-card:hover { transform:translateY(-4px) scale(1.025); }
-    .glass-filter { position:absolute; inset:0; z-index:0; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
-    .glass-overlay { position:absolute; inset:0; z-index:1; background:var(--lg-bg); }
-    .glass-specular { position:absolute; inset:0; z-index:2; border-radius:inherit; overflow:hidden; box-shadow:inset 1px 1px 0 var(--lg-hi), inset 0 0 8px var(--lg-hi); }
-    .glass-content { position:relative; z-index:3; }
-
-    /* ══ HEADER ══ */
-    .profile-card { width:100%; max-width:480px; margin-bottom:16px; }
-    .profile-border {
-      position:absolute; inset:0; border-radius:28px; pointer-events:none; z-index:10;
-      background: linear-gradient(135deg, rgba(255,255,255,0.765) 0%, rgba(255,255,255,0.765) 12%, rgba(100,160,255,0.28) 28%, rgba(100,160,255,0.18) 55%, rgba(100,160,255,0.28) 72%, rgba(255,255,255,0.722) 88%, rgba(255,255,255,0.722) 100%) border-box;
-      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite:destination-out; mask-composite:exclude;
-      border:1.5px solid transparent;
+    .contact-icon-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #0012ff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      text-decoration: none;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 2px 8px rgba(0,18,255,0.25);
     }
-    .profile-inner { display:flex; flex-direction:column; align-items:center; gap:12px; padding:36px 24px 30px; }
-    .profile-avatar { width:110px; height:110px; border-radius:50%; object-fit:contain; background:rgba(255,255,255,0.85); padding:8px; box-shadow:0 4px 20px rgba(0,0,0,0.18), inset 0 0 0 1.5px rgba(255,255,255,0.5); }
-    .profile-name { font-size:24px; font-weight:800; color:#fff; letter-spacing:-0.5px; text-align:center; text-shadow:0 2px 12px rgba(0,40,120,0.4); }
-    .profile-sub { font-size:14px; color:rgba(220,235,255,0.85); font-weight:500; text-align:center; }
+    .contact-icon-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 16px rgba(0,18,255,0.4);
+    }
 
     /* ══ BENTO GRID ══ */
-    .bento { width:100%; max-width:480px; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto; gap:14px; }
-    .card-instagram { grid-column:1; grid-row:1; }
-    .card-google    { grid-column:2; grid-row:1; }
-    .insta-inner, .google-inner { display:grid; grid-template-rows:1fr auto auto; align-items:center; justify-items:center; padding:26px 16px 20px; gap:14px; }
-    .platform-icon { width:82px; height:82px; object-fit:contain; transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,2.2); }
-    .platform-icon:hover { transform:scale(0.95); }
-    .card-label { font-size:14px; font-weight:700; color:#fff; text-shadow:0 1px 8px rgba(0,40,120,0.3); text-align:center; line-height:1.4; }
-
-    /* ══ BOUTONS PLATEFORME ══ */
-    .btn-platform { width:100%; height:3em; border-radius:30em; font-size:15px; font-family:'Poppins',inherit; font-weight:800; border:none; position:relative; overflow:hidden; z-index:1; cursor:pointer; background:rgba(255,255,255,0.90); box-shadow:4px 4px 10px rgba(0,0,0,0.15),-4px -4px 10px rgba(255,255,255,0.6); transition:color 0.3s ease, box-shadow 0.3s ease; }
-    .btn-platform::before { content:''; width:0; height:3em; border-radius:30em; position:absolute; top:0; left:0; transition:width 0.4s ease; z-index:-1; }
-    .btn-platform:active::before { width:100%; }
-    .btn-platform:active { color:#fff !important; box-shadow:none; }
-    .btn-platform:hover { box-shadow:4px 4px 14px rgba(0,0,0,0.18),-4px -4px 14px rgba(255,255,255,0.7); }
-    .btn-insta { color:#d6249f; }
-    .btn-insta::before { background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 30%,#d6249f 60%,#285AEB 90%); }
-    .btn-google-plat { color:#4285F4; }
-    .btn-google-plat::before { background:conic-gradient(from 0deg,#4285F4 0%,#34A853 25%,#FBBC05 50%,#EA4335 75%,#4285F4 100%); }
-    .btn-platform .btn-text { position:relative; z-index:2; }
-
-    /* ══ CONTAINER FORMULAIRE (GLASS) ══ */
-    .-container {
-      grid-column: 1 / -1;
+    .bento {
       width: 100%;
-      border-radius: 28px;
-      padding: 24px;
-      box-sizing: border-box;
+      max-width: 480px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* ══ CARD DE BASE ══ */
+    .card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: #0012ff;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,18,255,0.35); }
+
+    /* ══ CARD INSTAGRAM ══ */
+    .card-instagram {
+      grid-column: 1;
+      grid-row: 1;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      min-height: 72px;
+    }
+    .card-instagram .insta-logo {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      /* ⚠️ IMPORTER : logo Instagram blanc */
+    }
+    .card-instagram span {
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      font-style: italic;
+    }
+
+    /* ══ CARD GOOGLE AVIS ══ */
+    .card-google {
+      grid-column: 1;
+      grid-row: 2;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      min-height: 72px;
+    }
+    .card-google .google-logo {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      /* ⚠️ IMPORTER : logo Google (G coloré) */
+    }
+    .card-google .google-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .card-google .google-cta {
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      line-height: 1.2;
+    }
+    .card-google .google-stars {
+      font-size: 16px;
+      letter-spacing: 2px;
+      margin-top: 2px;
+    }
+
+    /* ══ CARD PROMO (colonne droite, 2 lignes de hauteur) ══ */
+    .card-promo {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 14px 14px;
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: var(--lg-bg);
-      box-shadow: inset 1px 1px 0 rgba(255,255,255,0.70), inset 0 0 8px rgba(255,255,255,0.70), 0 8px 32px rgba(0,0,0,0.25);
+      min-height: 160px;
     }
+    .promo-title {
+      font-size: 13px;
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .promo-desc {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.5;
+      max-width: 55%;
+      margin-bottom: auto;
+    }
+    .promo-product-img {
+      position: absolute;
+      right: -6px;
+      top: 10px;
+      width: 52%;
+      max-width: 110px;
+      object-fit: contain;
+      /* ⚠️ IMPORTER : photo du produit en promotion (PNG fond transparent) */
+    }
+    .promo-cta {
+      margin-top: 12px;
+      display: inline-block;
+      background: #fff;
+      color: #0012ff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 7px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .promo-cta:hover { background: #e8edff; }
 
-    /* ══ CHAMPS ══ */
-    .input-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #fff; font-size: 14px; }
+    /* ══ BENTO ORDONNANCE (pleine largeur) ══ */
+    .card-ordonnance {
+      grid-column: 1 / -1;
+      background: #0012ff;
+      border-radius: 20px;
+      padding: 24px;
+      cursor: default;
+    }
+    .card-ordonnance:hover { transform: none; box-shadow: none; }
+
+    /* ══ CHAMPS FORMULAIRE ══ */
+    .input-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 500;
+      color: #fff;
+      font-size: 13px;
+    }
     .input-group input {
-      width: 100%; padding: 12px; border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.05); color: #fff;
+      width: 100%; padding: 11px 12px; border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.10); color: #fff;
       font-family: 'Inter', sans-serif; font-size: 14px;
-      margin-bottom: 16px; transition: border 0.3s;
+      margin-bottom: 14px; transition: border 0.2s;
     }
-    .input-group input::placeholder { color: rgba(255,255,255,0.3); }
-    .input-group input:focus { outline: none; border-color: rgba(42, 95, 255, 0.8); }
-    .input-group input.input-error { border-color: rgba(255, 80, 80, 0.8) !important; background: rgba(255, 60, 60, 0.06) !important; }
-    .input-group input.input-ok { border-color: rgba(42, 200, 120, 0.7) !important; }
+    .input-group input::placeholder { color: rgba(255,255,255,0.4); }
+    .input-group input:focus { outline: none; border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
+    .input-group input.input-error { border-color: rgba(255, 100, 100, 0.9) !important; }
+    .input-group input.input-ok { border-color: rgba(80, 230, 150, 0.8) !important; }
+    .field-error-msg { display: none; color: #ffaaaa; font-size: 11px; font-weight: 500; margin-top: -10px; margin-bottom: 12px; }
 
-    .field-error-msg { display: none; color: #ff6b6b; font-size: 11px; font-weight: 500; margin-top: -12px; margin-bottom: 12px; }
-
-    /* ══ TEXTAREA ══ */
-    .input-group textarea {
-      width: 100%; padding: 12px; border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.05); color: #fff;
-      font-family: 'Inter', sans-serif; font-size: 14px;
-      margin-bottom: 16px; transition: border 0.3s;
-      resize: vertical; min-height: 60px; max-height: 120px;
-    }
-    .input-group textarea:focus { outline: none; border-color: rgba(42, 95, 255, 0.8); }
-    .input-group textarea::placeholder { color: rgba(255,255,255,0.3); }
-
-    /* ══ ZONE DÉPÔT FICHIER ══ */
+    /* ══ ZONE DÉPÔT ══ */
     .file-trigger-zone {
       position: relative;
       padding: 16px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px dashed rgba(255,255,255,0.35);
+      border-radius: 14px;
       cursor: pointer;
       transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
-    .file-trigger-zone:hover { background: rgba(255, 255, 255, 0.08); }
+    .file-trigger-zone:hover { background: rgba(255,255,255,0.12); }
     .file-trigger-zone.drag-over {
-      background: rgba(42, 95, 255, 0.12);
-      border: 1.5px solid rgba(255, 255, 255, 0.85);
-      box-shadow: 0 0 0 3px rgba(42, 95, 255, 0.35), inset 0 0 16px rgba(42, 95, 255, 0.1);
+      background: rgba(255,255,255,0.18);
+      border: 1.5px solid #fff;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.2);
     }
-    .file-trigger-zone input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 20; }
-    .file-info-row { display: flex; align-items: center; gap: 18px; }
+    .file-trigger-zone input[type="file"] {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 20;
+    }
+    .file-info-row { display: flex; align-items: center; gap: 14px; }
 
-    /* ══ ICÔNE DOSSIER 3D ══ */
-    .folder-icon-container { position: relative; width: 68px; height: 56px; filter: drop-shadow(0 6px 20px rgba(26, 63, 204, 0.55)); flex-shrink: 0; }
-    .folder-back { position: absolute; top: 0; left: 0; width: 58px; height: 44px; background: linear-gradient(135deg, #112ba1, #1a3fcc); border-radius: 6px 12px 6px 6px; }
-    .folder-back::before { content: ''; position: absolute; top: -4px; left: 0; width: 24px; height: 10px; background: #112ba1; border-radius: 4px 4px 0 0; }
-    .folder-front { position: absolute; bottom: 0; left: 2px; width: 64px; height: 44px; background: linear-gradient(135deg, #1a3fcc, #2a5fff); border-radius: 6px; transform: skewX(-3deg); overflow: hidden; }
-    .folder-front::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent); }
-    .badge-files { position: absolute; bottom: 4px; left: -10px; z-index: 10; background: rgba(30,80,240,0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 6px; letter-spacing: 0.5px; }
+    /* ══ ICÔNE DOSSIER ══ */
+    .folder-icon-container { position: relative; width: 60px; height: 50px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); flex-shrink: 0; }
+    .folder-back { position: absolute; top: 0; left: 0; width: 52px; height: 40px; background: rgba(255,255,255,0.25); border-radius: 5px 10px 5px 5px; }
+    .folder-back::before { content: ''; position: absolute; top: -4px; left: 0; width: 20px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 3px 3px 0 0; }
+    .folder-front { position: absolute; bottom: 0; left: 2px; width: 56px; height: 38px; background: rgba(255,255,255,0.45); border-radius: 5px; transform: skewX(-2deg); }
+    .badge-files { position: absolute; bottom: 2px; left: -8px; z-index: 10; background: rgba(0,18,255,0.6); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 5px; letter-spacing: 0.5px; }
 
     .text-details { display: flex; flex-direction: column; gap: 3px; }
-    .title { color: #fff; font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
-    .subtitle { color: #8888aa; font-size: 12px; font-weight: 500; }
-    
+    .file-title { color: #fff; font-size: 15px; font-weight: 700; }
+    .file-subtitle { color: rgba(255,255,255,0.55); font-size: 11px; font-weight: 500; }
 
-    /* ══ CROIX SUPPRESSION ══ */
+    /* ══ CROIX ══ */
     .file-remove-btn {
       position: absolute; top: 8px; right: 8px; z-index: 30;
-      width: auto; height: auto; background: none; border: none;
-      color: rgba(255,255,255,0.5); font-size: 18px; line-height: 1;
-      cursor: pointer; padding: 2px 4px; border-radius: 4px;
-      display: none; transition: color 0.2s, transform 0.2s;
+      background: none; border: none; color: rgba(255,255,255,0.5);
+      font-size: 18px; line-height: 1; cursor: pointer; padding: 2px 4px;
+      border-radius: 4px; display: none; transition: color 0.2s, transform 0.2s;
     }
-    .file-remove-btn:hover { color: #ff6b6b; transform: scale(1.2) rotate(90deg); }
+    .file-remove-btn:hover { color: #ffaaaa; transform: scale(1.2) rotate(90deg); }
 
-    /* ══ APERÇU FICHIER ══ */
-    .file-preview { display: none; width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
-    .file-preview-pdf { display: none; width: 48px; height: 48px; border-radius: 8px; background: linear-gradient(135deg, #1a3fcc, #2a5fff); align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    /* ══ APERÇU ══ */
+    .file-preview { display: none; width: 44px; height: 44px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(255,255,255,0.3); flex-shrink: 0; }
+    .file-preview-pdf { display: none; width: 44px; height: 44px; border-radius: 8px; background: rgba(255,255,255,0.2); align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
 
-    /* ══ ERREUR FICHIER ══ */
-    .file-error-msg { display: none; color: #ff6b6b; font-size: 12px; font-weight: 600; margin-top: 8px; text-align: center; }
+    .file-error-msg { display: none; color: #ffaaaa; font-size: 12px; font-weight: 600; margin-top: 8px; text-align: center; }
 
     /* ══ BARRE DE PROGRESSION ══ */
-.progress-panel {
-  margin-top: 18px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 14px;
-  padding: 14px 16px;
-  display: none;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-}
-
-/* Effet ver de terre : lumière qui parcourt le bord */
-@property --progress-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-    
-
-@keyframes progress-border-spin {
-  to { --progress-angle: 360deg; }
-}
+    .progress-panel { margin-top: 14px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px 14px; display: none; flex-direction: column; gap: 10px; }
     .progress-status-row { display: flex; justify-content: space-between; align-items: center; }
-    .status-left { display: flex; align-items: center; gap: 10px; }
-    .spinner { width: 14px; height: 14px; border: 2px solid #fff; border-right-color: transparent; border-radius: 50%; animation: rotate 1s linear infinite; }
-    .status-text { color: #fff; font-size: 14px; }
-    .percentage { color: #fff; font-size: 18px; font-weight: 700; }
-    .progress-bar-bg { width: 100%; height: 6px; background: #1a1a2e; border-radius: 10px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #fff, #ccccee); border-radius: 10px; transition: width 0.5s ease-out; }
+    .status-left { display: flex; align-items: center; gap: 8px; }
+    .spinner { width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.8); border-right-color: transparent; border-radius: 50%; animation: rotate 1s linear infinite; }
+    .status-text { color: rgba(255,255,255,0.85); font-size: 13px; }
+    .percentage { color: #fff; font-size: 16px; font-weight: 700; }
+    .progress-bar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 0%; background: #fff; border-radius: 10px; transition: width 0.5s ease-out; }
     @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     /* ══ BOUTON ENVOYER ══ */
     .btn-send {
       width: 100%; height: 3.2em; border-radius: 30em;
       font-size: 15px; font-family: 'Poppins', inherit; font-weight: 800;
-      border: none; cursor: pointer; color: #fff;
-      background: linear-gradient(135deg, #1a3fcc, #2a5fff);
-      box-shadow: 0 4px 16px rgba(26,63,204,0.40);
-      margin-top: 16px; transition: all 0.2s;
-      display: block;
+      border: none; cursor: pointer; color: #0012ff;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      margin-top: 16px; transition: all 0.2s; display: block;
     }
-    .btn-send:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(26,63,204,0.6); transform: translateY(-1px); }
-    .btn-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+    .btn-send:hover:not(:disabled) { box-shadow: 0 6px 24px rgba(0,0,0,0.25); transform: translateY(-1px); }
+    .btn-send:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
     /* ══ FEEDBACK SUCCÈS ══ */
-    .success-overlay { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px 16px; text-align: center; }
-    .success-checkmark { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #1a3fcc, #2a5fff); display: flex; align-items: center; justify-content: center; font-size: 28px; animation: pop-in 0.4s cubic-bezier(0.175,0.885,0.32,2.2) both; }
-    .success-title { color: #fff; font-size: 18px; font-weight: 800; }
-    .success-sub { color: rgba(200,220,255,0.7); font-size: 13px; font-weight: 500; }
+    .success-overlay { display: none; flex-direction: column; align-items: center; gap: 16px; padding: 28px 16px 20px; text-align: center; }
+    .success-icon { width: 80px; height: 80px; object-fit: contain; animation: pop-in 0.5s cubic-bezier(0.175,0.885,0.32,2.2) both; /* ⚠️ IMPORTER : confirm_icon.png */ }
+    .success-title { color: #fff; font-size: 20px; font-weight: 800; }
+    .success-sub { color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 500; line-height: 1.6; }
+    .success-actions { display: flex; align-items: center; gap: 10px; width: 100%; margin-top: 6px; }
+    .btn-back-home { width: 48px; height: 48px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+    .btn-back-home:hover { background: rgba(255,255,255,0.2); color: #fff; }
+    .btn-google-review { flex: 1; height: 48px; border-radius: 12px; border: none; background: #fff; color: #0012ff; font-family: 'Poppins', inherit; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; transition: box-shadow 0.2s, transform 0.2s; }
+    .btn-google-review:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.2); transform: translateY(-1px); }
     @keyframes pop-in { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-    /* ══ SUCCESS OVERLAY REDESIGN ══ */
-.success-overlay {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 28px 16px 20px;
-  text-align: center;
-}
-.success-icon {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  animation: pop-in 0.5s cubic-bezier(0.175,0.885,0.32,2.2) both;
-}
-.success-title {
-  color: #fff;
-  font-size: 20px;
-  font-weight: 800;
-  margin-top: 4px;
-}
-.success-sub {
-  color: rgba(200,220,255,0.7);
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.6;
-}
-.success-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  margin-top: 8px;
-}
-.btn-back-home {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  border: 1.5px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.7);
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background 0.2s, color 0.2s;
-}
-.btn-back-home:hover {
-  background: rgba(255,255,255,0.14);
-  color: #fff;
-}
-.btn-google-review {
-  flex: 1;
-  height: 48px;
-  border-radius: 14px;
-  border: none;
-  background: linear-gradient(135deg, #1a3fcc, #2a5fff);
-  color: #fff;
-  font-family: 'Poppins', inherit;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(26,63,204,0.4);
-  transition: box-shadow 0.2s, transform 0.2s;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.btn-google-review:hover {
-  box-shadow: 0 6px 20px rgba(26,63,204,0.6);
-  transform: translateY(-1px);
-}
-
     /* ══ LOADER ══ */
-    .loader-section { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; margin-top:48px; width:100%; }
-    .loader-label { font-size:12px; font-weight:500; color:rgba(200,220,255,0.55); letter-spacing:0.5px; }
-    .loader { --size:130px; --dur:4s; height:var(--size); aspect-ratio:1; position:relative; }
-    .loader .box { position:absolute; background:linear-gradient(0deg,rgba(100,160,255,0.10) 0%,rgba(255,255,255,0.18) 100%); border-radius:50%; border-top:1px solid rgba(150,200,255,0.7); backdrop-filter:blur(4px); animation:ripple var(--dur) infinite ease-in-out; }
-    .loader .box:nth-child(1) { inset:40%; z-index:99; }
-    .loader .box:nth-child(2) { inset:30%; z-index:98; border-color:rgba(150,200,255,0.5); animation-delay:0.4s; }
-    .loader .box:nth-child(3) { inset:20%; z-index:97; border-color:rgba(150,200,255,0.35); animation-delay:0.8s; }
-    .loader .box:nth-child(4) { inset:10%; z-index:96; border-color:rgba(150,200,255,0.2); animation-delay:1.2s; }
-    .loader .box:nth-child(5) { inset:0%; z-index:95; border-color:rgba(150,200,255,0.08); animation-delay:1.6s; }
-    .loader .logo { position:absolute; inset:0; display:grid; place-content:center; padding:28%; z-index:100; }
-    .loader .logo img { width:100%; animation:logo-pulse var(--dur) infinite ease-in-out; }
-    @keyframes ripple { 0%,100% { transform:scale(1); } 50% { transform:scale(1.3); } }
-    @keyframes logo-pulse { 0%,100% { opacity:0.45; } 50% { opacity:1; } }
+    .loader-section { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; margin-top: 48px; width: 100%; }
+    .loader-label { font-size: 12px; font-weight: 500; color: rgba(0,18,255,0.45); letter-spacing: 0.5px; }
+    .loader { --size: 110px; --dur: 4s; height: var(--size); aspect-ratio: 1; position: relative; }
+    .loader .box { position: absolute; background: linear-gradient(0deg, rgba(0,18,255,0.06) 0%, rgba(0,18,255,0.14) 100%); border-radius: 50%; border-top: 1px solid rgba(0,18,255,0.4); animation: ripple var(--dur) infinite ease-in-out; }
+    .loader .box:nth-child(1) { inset: 40%; z-index: 99; }
+    .loader .box:nth-child(2) { inset: 30%; z-index: 98; border-color: rgba(0,18,255,0.28); animation-delay: 0.4s; }
+    .loader .box:nth-child(3) { inset: 20%; z-index: 97; border-color: rgba(0,18,255,0.18); animation-delay: 0.8s; }
+    .loader .box:nth-child(4) { inset: 10%; z-index: 96; border-color: rgba(0,18,255,0.10); animation-delay: 1.2s; }
+    .loader .box:nth-child(5) { inset: 0%;  z-index: 95; border-color: rgba(0,18,255,0.05); animation-delay: 1.6s; }
+    .loader .logo { position: absolute; inset: 0; display: grid; place-content: center; padding: 28%; z-index: 100; }
+    .loader .logo img { width: 100%; animation: logo-pulse var(--dur) infinite ease-in-out; /* ⚠️ IMPORTER : Logo-test-swiftlink.png */ }
+    @keyframes ripple { 0%,100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+    @keyframes logo-pulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
   </style>
 </head>
 <body>
 
-  <div class="glass-card profile-card">
-    <div class="glass-filter"></div>
-    <div class="glass-overlay"></div>
-    <div class="glass-specular"></div>
-    <div class="profile-border"></div>
-    <div class="glass-content profile-inner">
-      <img class="profile-avatar" src="Logo NEW Swiftup_FULL_WHITE.png" alt="Logo">
-      <div class="profile-name">Pharmacie AZERTY</div>
-      <div class="profile-sub">Votre pharmacie de confiance à Paris</div>
+  <!-- ══ HEADER PROFIL ══ -->
+  <div class="profile-section">
+    <!-- ⚠️ IMPORTER : src="logo-pharmacie.png" — photo de profil ronde -->
+    <img class="profile-avatar" src="Logo NEW Swiftup_FULL_WHITE.png" alt="Logo pharmacie">
+    <div class="profile-name">Pharmacie AZERTY</div>
+    <div class="profile-sub">Votre pharmacie de confiance à Paris</div>
+
+    <!-- Icônes de contact style Linktree -->
+    <div class="contact-icons">
+      <!-- ⚠️ Remplacer href par le vrai numéro de téléphone -->
+      <a class="contact-icon-btn" href="tel:+33100000000" title="Appeler">📞</a>
+      <!-- ⚠️ Remplacer href par l'adresse Google Maps -->
+      <a class="contact-icon-btn" href="https://maps.google.com" target="_blank" title="Adresse">📍</a>
+      <!-- ⚠️ Remplacer href par la page "à propos" ou le site -->
+      <a class="contact-icon-btn" href="#" title="Informations">ℹ️</a>
+      <!-- ⚠️ Remplacer les horaires dans le tooltip ou href -->
+      <a class="contact-icon-btn" href="#" title="Horaires : Lun-Sam 9h-19h">🕐</a>
     </div>
   </div>
 
-  <div class="bento" id="bento-grid">
+  <!-- ══ BENTO GRID ══ -->
+  <div class="bento">
 
-    <a href="https://www.instagram.com/swiftup_fr" target="_blank" class="glass-card card-instagram" style="text-decoration:none;">
-      <div class="glass-filter"></div><div class="glass-overlay"></div><div class="glass-specular"></div>
-      <div class="glass-content insta-inner">
-        <img class="platform-icon" src="instagram-letter-white-logo-icon-ig-app-transparent-background-premium-social-media-design-for-digital-download-free-png.webp" alt="Instagram">
-        <div class="card-label">Suivez-nous<br>sur Instagram !</div>
-        <button class="btn-platform btn-insta"><span class="btn-text">S'abonner</span></button>
+    <!-- Instagram -->
+    <!-- ⚠️ Remplacer href par le vrai lien Instagram -->
+    <a href="https://www.instagram.com/swiftup_fr" target="_blank" class="card card-instagram">
+      <!-- ⚠️ IMPORTER : src="instagram-logo-white.png" -->
+      <img class="insta-logo" src="instagram-letter-white-logo-icon-ig-app-transparent-background-premium-social-media-design-for-digital-download-free-png.webp" alt="Instagram">
+      <span>Instagram</span>
+    </a>
+
+    <!-- Google Avis -->
+    <!-- ⚠️ Remplacer href par le vrai lien Google Avis -->
+    <a href="avis.html" class="card card-google">
+      <!-- ⚠️ IMPORTER : src="google-logo.png" -->
+      <img class="google-logo" src="google-logo.png" alt="Google">
+      <div class="google-text">
+        <div class="google-cta">Donnez nous<br>votre avis</div>
+        <div class="google-stars">★★★★★</div>
       </div>
     </a>
 
-    <a href="avis.html" class="glass-card card-google" style="text-decoration:none;">
-      <div class="glass-filter"></div><div class="glass-overlay"></div><div class="glass-specular"></div>
-      <div class="glass-content google-inner">
-        <img class="platform-icon" src="google-logo.png" alt="Google">
-        <div class="card-label">Nos avis<br>Google</div>
-        <button class="btn-platform btn-google-plat"><span class="btn-text">Votre avis compte !</span></button>
-      </div>
-    </a>
+    <!-- Promo du mois -->
+    <div class="card card-promo">
+      <div class="promo-title">PROMO DU MOIS</div>
+      <div class="promo-desc">Découvrez nos indispensables du moment à prix réduit : soins, protection et bien-être</div>
+      <!-- ⚠️ IMPORTER : src="produit-promo.png" — photo du produit PNG fond transparent -->
+      <img class="promo-product-img" src="produit-promo.png" alt="Produit promo">
+      <!-- ⚠️ Remplacer href par le lien promo -->
+      <a class="promo-cta" href="#">J'en profite ! →</a>
+    </div>
 
-    <div class="-container">
+    <!-- Formulaire ordonnance -->
+    <div class="card card-ordonnance">
       <div id="form-content">
-        <div style="color:#fff; font-weight:800; font-size:18px; margin-bottom:30px; text-align:center;">Envoyer votre ordonnance</div>
+        <div style="color:#fff; font-weight:800; font-size:18px; margin-bottom:24px; text-align:center;">Envoyer votre ordonnance</div>
 
         <div class="input-group">
           <label for="sender-name">Nom et Prénom :</label>
@@ -406,8 +439,8 @@ body {
               <div class="badge-files">FILES</div>
             </div>
             <div class="text-details">
-              <div id="Title" class="title">Déposez votre ordonnance ici</div>
-              <div id="Subtitle" class="subtitle">JPG, PNG ou PDF · 5 MB max</div>
+              <div id="Title" class="file-title">Déposez votre ordonnance ici</div>
+              <div id="Subtitle" class="file-subtitle">JPG, PNG ou PDF · 5 MB max</div>
             </div>
           </div>
         </div>
@@ -430,48 +463,52 @@ body {
       </div>
 
       <div class="success-overlay" id="success-overlay">
-  <img class="success-icon" src="confirm_icon.png" alt="Succès">
-  <div class="success-title">Ordonnance envoyée !</div>
-  <div class="success-sub">La pharmacie a bien reçu votre document.<br>Nous vous contacterons si besoin.</div>
-  <div class="success-actions">
-    <button class="btn-back-home" id="btn-back-home" title="Retour">✕</button>
-    <a href="avis.html" class="btn-google-review">⭐ Vous satisfait ? Laissez-nous un avis !</a>
-  </div>
-</div>
+        <!-- ⚠️ IMPORTER : src="confirm_icon.png" -->
+        <img class="success-icon" src="confirm_icon.png" alt="Succès">
+        <div class="success-title">Ordonnance envoyée !</div>
+        <div class="success-sub">La pharmacie a bien reçu votre document.<br>Nous vous contacterons si besoin.</div>
+        <div class="success-actions">
+          <button class="btn-back-home" id="btn-back-home" title="Retour">✕</button>
+          <a href="avis.html" class="btn-google-review">⭐ Vous satisfait ? Laissez-nous un avis !</a>
+        </div>
+      </div>
+    </div>
 
   </div>
 
+  <!-- ══ LOADER ══ -->
   <div class="loader-section">
     <div class="loader">
       <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
-      <div class="logo"><img src="Logo-test-swiftlink.png" alt="Logo"></div>
+      <!-- ⚠️ IMPORTER : src="Logo-test-swiftlink.png" -->
+      <div class="logo"><img src="Logo-test-swiftlink.png" alt="Swift'Link"></div>
     </div>
     <span class="loader-label">Propulsé par Swift'Link</span>
   </div>
 
   <script>
-  const fileInput    = document.getElementById('fileInput');
-  const Title        = document.getElementById('Title');
-  const Subtitle     = document.getElementById('Subtitle');
-  const progressPanel= document.getElementById('progressPanel');
-  const progressBarFill = document.getElementById('progressBarFill');
-  const percentageText  = document.getElementById('percentage');
-  const statusText   = document.getElementById('statusText');
-  const spinner      = document.getElementById('spinner');
-  const btnSend      = document.getElementById('btn-send');
-  const phoneInput   = document.getElementById('sender-phone');
-  const nameInput    = document.getElementById('sender-name');
-  const removeFileBtn= document.getElementById('removeFileBtn');
-  const dropZone     = document.getElementById('drop-zone');
+  const fileInput      = document.getElementById('fileInput');
+  const Title          = document.getElementById('Title');
+  const Subtitle       = document.getElementById('Subtitle');
+  const progressPanel  = document.getElementById('progressPanel');
+  const progressBarFill= document.getElementById('progressBarFill');
+  const percentageText = document.getElementById('percentage');
+  const statusText     = document.getElementById('statusText');
+  const spinner        = document.getElementById('spinner');
+  const btnSend        = document.getElementById('btn-send');
+  const phoneInput     = document.getElementById('sender-phone');
+  const nameInput      = document.getElementById('sender-name');
+  const removeFileBtn  = document.getElementById('removeFileBtn');
+  const dropZone       = document.getElementById('drop-zone');
   const filePreviewImg = document.getElementById('filePreviewImg');
   const filePreviewPdf = document.getElementById('filePreviewPdf');
-  const folderIcon   = document.getElementById('folderIcon');
-  const fileErrorMsg = document.getElementById('file-error-msg');
+  const folderIcon     = document.getElementById('folderIcon');
+  const fileErrorMsg   = document.getElementById('file-error-msg');
   const successOverlay = document.getElementById('success-overlay');
-  const formContent  = document.getElementById('form-content');
+  const formContent    = document.getElementById('form-content');
 
-  const MAX_SIZE_MB  = 5;
-  let selectedFile   = null;
+  const MAX_SIZE_MB = 5;
+  let selectedFile  = null;
 
   // ── SONS ──
   function playSound(type) {
@@ -495,10 +532,9 @@ body {
     }
   }
 
-  // ── VALIDATION TEMPS RÉEL ──
-  nameInput.addEventListener('blur', () => validateName());
-  nameInput.addEventListener('input', () => validateName());
-
+  // ── VALIDATION NOM ──
+  nameInput.addEventListener('blur', validateName);
+  nameInput.addEventListener('input', validateName);
   function validateName() {
     const val = nameInput.value.trim();
     const err = document.getElementById('name-error');
@@ -511,15 +547,14 @@ body {
     }
     updateSendBtn();
   }
-    
+
+  // ── VALIDATION TÉLÉPHONE ──
   let phoneValidateTimer = null;
   if (phoneInput) {
     phoneInput.addEventListener('input', function(e) {
       let raw = e.target.value;
-      // Efface l'erreur dès que l'utilisateur retape
       phoneInput.classList.remove('input-error');
       document.getElementById('phone-error').style.display = 'none';
-      
       if (raw.startsWith('+33')) {
         let digits = raw.replace(/^\+33/, '').replace(/\D/g, '').substring(0, 9);
         let formatted = '+33';
@@ -539,14 +574,10 @@ body {
     });
     phoneInput.addEventListener('blur', validatePhone);
   }
-
   function validatePhone() {
     const val = phoneInput.value.trim().replace(/\s+/g, '');
     const err = document.getElementById('phone-error');
-    if (val.length === 0) {
-      phoneInput.classList.remove('input-error', 'input-ok');
-      err.style.display = 'none'; return;
-    }
+    if (val.length === 0) { phoneInput.classList.remove('input-error', 'input-ok'); err.style.display = 'none'; return; }
     let ok = false;
     if (val.startsWith('0')) ok = val.length === 10 && /^\d+$/.test(val);
     else if (val.startsWith('+33')) ok = val.replace(/^\+33/, '').replace(/\D/g,'').length === 9;
@@ -561,40 +592,26 @@ body {
   }
 
   // ── DRAG & DROP ──
-  dropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropZone.classList.add('drag-over');
-  });
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
   dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('drag-over');
+    e.preventDefault(); dropZone.classList.remove('drag-over');
     const file = e.dataTransfer.files[0];
     if (file) handleFile(file);
   });
 
-  // ── SÉLECTION FICHIER ──
-  fileInput.addEventListener('change', function(e) {
-    handleFile(e.target.files[0]);
-  });
+  fileInput.addEventListener('change', function(e) { handleFile(e.target.files[0]); });
 
   function handleFile(file) {
     const sizeMB = file.size / (1024 * 1024);
-    if (sizeMB > MAX_SIZE_MB) {
-      playSound('error');
-      fileErrorMsg.style.display = 'block';
-      return;
-    }
+    if (sizeMB > MAX_SIZE_MB) { playSound('error'); fileErrorMsg.style.display = 'block'; return; }
     fileErrorMsg.style.display = 'none';
     selectedFile = file;
-
     Title.innerText = file.name;
     Subtitle.innerText = sizeMB.toFixed(2) + ' MB';
     removeFileBtn.style.display = 'block';
-
-    const isPdf = file.type === 'application/pdf';
     folderIcon.style.display = 'none';
-    if (isPdf) {
+    if (file.type === 'application/pdf') {
       filePreviewImg.style.display = 'none';
       filePreviewPdf.style.display = 'flex';
     } else {
@@ -604,7 +621,6 @@ body {
       reader.onload = (ev) => { filePreviewImg.src = ev.target.result; };
       reader.readAsDataURL(file);
     }
-
     progressPanel.style.display = 'flex';
     spinner.style.display = 'block';
     updateSendBtn();
@@ -614,8 +630,7 @@ body {
   // ── SUPPRESSION FICHIER ──
   removeFileBtn.addEventListener('click', function(e) {
     e.stopPropagation();
-    selectedFile = null;
-    fileInput.value = '';
+    selectedFile = null; fileInput.value = '';
     Title.innerText = 'Déposez votre ordonnance ici';
     Subtitle.innerText = 'JPG, PNG ou PDF · 5 MB max';
     removeFileBtn.style.display = 'none';
@@ -632,49 +647,37 @@ body {
   // ── BARRE DE PROGRESSION ──
   function startSatisfyingLoading() {
     const bar = progressBarFill;
-    bar.style.transition = "none";
-    bar.style.width = "0%";
-    percentageText.innerText = "0%";
-    statusText.innerText = "Préparation...";
-
+    bar.style.transition = "none"; bar.style.width = "0%";
+    percentageText.innerText = "0%"; statusText.innerText = "Préparation...";
     function animatePercent(from, to, duration, onDone) {
       const start = performance.now();
       function step(now) {
         const progress = Math.min((now - start) / duration, 1);
-        const value = Math.round(from + (to - from) * progress);
-        percentageText.innerText = value + "%";
+        percentageText.innerText = Math.round(from + (to - from) * progress) + "%";
         if (progress < 1) requestAnimationFrame(step);
         else if (onDone) onDone();
       }
       requestAnimationFrame(step);
     }
-
     requestAnimationFrame(() => {
-      bar.style.transition = "width 0.5s ease-out";
-      bar.style.width = "50%";
-      statusText.innerText = "Téléchargement...";
-      animatePercent(0, 50, 500);
+      bar.style.transition = "width 0.5s ease-out"; bar.style.width = "50%";
+      statusText.innerText = "Téléchargement..."; animatePercent(0, 50, 500);
     });
     setTimeout(() => {
-      bar.style.transition = "width 2.5s ease-in-out";
-      bar.style.width = "75%";
+      bar.style.transition = "width 2.5s ease-in-out"; bar.style.width = "75%";
       animatePercent(50, 75, 2500);
     }, 500);
     setTimeout(() => {
-      bar.style.transition = "width 0.4s ease-in";
-      bar.style.width = "100%";
+      bar.style.transition = "width 0.4s ease-in"; bar.style.width = "100%";
       statusText.innerText = "Fichier prêt !";
-      animatePercent(75, 100, 400, () => {
-        if (spinner) spinner.style.display = 'none';
-      });
+      animatePercent(75, 100, 400, () => { if (spinner) spinner.style.display = 'none'; });
     }, 3000);
   }
 
   // ── ENVOI ──
   function sendWithAttachment() {
-    const senderName    = nameInput ? nameInput.value.trim() : "";
-    const senderPhone   = phoneInput ? phoneInput.value.trim().replace(/\s+/g, '') : "";
-
+    const senderName  = nameInput ? nameInput.value.trim() : "";
+    const senderPhone = phoneInput ? phoneInput.value.trim().replace(/\s+/g, '') : "";
     if (!senderName) {
       nameInput.classList.add('input-error');
       document.getElementById('name-error').style.display = 'block';
@@ -684,22 +687,19 @@ body {
       fileErrorMsg.innerText = "Veuillez sélectionner un fichier.";
       fileErrorMsg.style.display = 'block'; return;
     }
-
     btnSend.textContent = "Envoi en cours...";
     btnSend.style.opacity = "0.6";
     btnSend.disabled = true;
-
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
-    reader.onload = function () {
+    reader.onload = function() {
       const templateParams = {
-        name_sender:    senderName,
-        phone_sender:   senderPhone || "Non renseigné",
-        file_name:      selectedFile.name,
-        my_file:        reader.result,
-        sent_at:        new Date().toLocaleString('fr-FR')
+        name_sender:  senderName,
+        phone_sender: senderPhone || "Non renseigné",
+        file_name:    selectedFile.name,
+        my_file:      reader.result,
+        sent_at:      new Date().toLocaleString('fr-FR')
       };
-
       emailjs.send('service_3svkyii', 'template_hlj4f0g', templateParams)
         .then(function() {
           trackSend();
@@ -721,29 +721,28 @@ body {
       btnSend.style.opacity = "1";
       btnSend.disabled = false;
     };
-    
- // ── bouton retour --
-  document.getElementById('btn-back-home').addEventListener('click', function() {
-  successOverlay.style.display = 'none';
-  formContent.style.display = 'block';
-  selectedFile = null;
-  fileInput.value = '';
-  nameInput.value = '';
-  if (phoneInput) phoneInput.value = '';
-  Title.innerText = 'Déposez votre ordonnance ici';
-  Subtitle.innerText = 'JPG, PNG ou PDF · 5 MB max';
-  removeFileBtn.style.display = 'none';
-  filePreviewImg.style.display = 'none';
-  filePreviewPdf.style.display = 'none';
-  folderIcon.style.display = 'block';
-  progressPanel.style.display = 'none';
-  progressBarFill.style.width = '0%';
-  spinner.style.display = 'block';
-  nameInput.classList.remove('input-ok', 'input-error');
-  if (phoneInput) phoneInput.classList.remove('input-ok', 'input-error');
-  updateSendBtn();
-});
   }
+
+  // ── BOUTON RETOUR ──
+  document.getElementById('btn-back-home').addEventListener('click', function() {
+    successOverlay.style.display = 'none';
+    formContent.style.display = 'block';
+    selectedFile = null; fileInput.value = '';
+    nameInput.value = '';
+    if (phoneInput) phoneInput.value = '';
+    Title.innerText = 'Déposez votre ordonnance ici';
+    Subtitle.innerText = 'JPG, PNG ou PDF · 5 MB max';
+    removeFileBtn.style.display = 'none';
+    filePreviewImg.style.display = 'none';
+    filePreviewPdf.style.display = 'none';
+    folderIcon.style.display = 'block';
+    progressPanel.style.display = 'none';
+    progressBarFill.style.width = '0%';
+    spinner.style.display = 'block';
+    nameInput.classList.remove('input-ok', 'input-error');
+    if (phoneInput) phoneInput.classList.remove('input-ok', 'input-error');
+    updateSendBtn();
+  });
   </script>
 
 </body>
