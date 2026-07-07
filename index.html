@@ -33,6 +33,23 @@
       background-color: #d2d2d2;
     }
 
+    /* ══ BANNIÈRE ══ */
+.banniere {
+  width: 100%;
+  max-width: 480px;
+  height: 160px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+.banniere img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
     /* ══ HEADER PROFIL ══ */
     .profile-section {
       display: flex;
@@ -46,9 +63,13 @@
     .profile-avatar {
       width: 96px;
       height: 96px;
-      border-radius: 50%;
+      border-radius: 22.5%;
       object-fit: cover;
       background: #0012ff;
+      clip-path: path('M48,0 C74.4,0 96,21.6 96,48 C96,74.4 74.4,96 48,96 C21.6,96 0,74.4 0,48 C0,21.6 21.6,0 48,0 Z');
+
+      
+      
 
       /* ⚠️ IMPORTER : logo de la pharmacie (photo de profil ronde) */
     }
@@ -292,6 +313,12 @@
 </head>
 <body>
 
+
+  <!-- ══ BANNIÈRE ══ -->
+<div class="banniere">
+  <img src="banniere_test.png" alt="Bannière pharmacie">
+</div>
+  
   <!-- ══ HEADER PROFIL ══ -->
   <div class="profile-section">
     <!-- ⚠️ IMPORTER : src="logo-pharmacie.png" — photo de profil ronde -->
