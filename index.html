@@ -102,23 +102,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border: none;
+  background: #d2d2d2;
+  border: 1.5px solid #ffffff;
   cursor: pointer;
   text-decoration: none;
   transition: transform 0.18s, box-shadow 0.18s;
-  width: 58px;
-  height: 58px;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  width: 64px;
+  height: 48px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .contact-icon-btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
 }
 .contact-icon-btn img {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
     /* ══ BENTO GRID ══ */
@@ -332,30 +332,33 @@
 
     <!-- Icônes de contact style Linktree -->
     <div class="contact-icons">
-      <a class="contact-icon-btn" href="tel:+33781298075" title="Appeler">
-        <img src="phone.svg" alt="Téléphone">
-          <span style="font-size:9px; color:#555; margin-top:4px; font-weight:600;">Appeler</span>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+  <a class="contact-icon-btn" href="tel:+33781298075">
+    <img src="phone.svg" alt="Téléphone">
+  </a>
+  <span style="font-size:9px; color:#555; font-weight:600;">Appeler</span>
+</div>
 
-      </a>
-      <!-- ⚠️ Remplacer href par le lien Google Maps -->
-      <a class="contact-icon-btn" href="https://maps.app.goo.gl/sVoh48TPr2kfwsWB7" target="_blank" title="Adresse">
-        <img src="map-pin.svg" alt="Adresse">
-          <span style="font-size:9px; color:#555; margin-top:4px; font-weight:600;">Adresse</span>
+<div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+  <a class="contact-icon-btn" href="https://maps.app.goo.gl/sVoh48TPr2kfwsWB7" target="_blank">
+    <img src="map-pin.svg" alt="Adresse">
+  </a>
+  <span style="font-size:9px; color:#555; font-weight:600;">Adresse</span>
+</div>
 
-      </a>
-      <!-- ⚠️ Remplacer href par le lien infos / site -->
-      <a class="contact-icon-btn" href="#" title="Informations">
-        <img src="infos.svg" alt="Informations">
-          <span style="font-size:9px; color:#555; margin-top:4px; font-weight:600;">Infos</span>
+<div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+  <a class="contact-icon-btn" href="#">
+    <img src="infos.svg" alt="Infos">
+  </a>
+  <span style="font-size:9px; color:#555; font-weight:600;">Infos</span>
+</div>
 
-      </a>
-      <!-- ⚠️ Remplacer href par page horaires -->
-      <a class="contact-icon-btn" href="#" title="Horaires">
-        <img src="clock.svg" alt="Horaires">
-          <span style="font-size:9px; color:#555; margin-top:4px; font-weight:600;">Horaires</span>
-
-      </a>
-    </div>
+<div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+  <a class="contact-icon-btn" href="#">
+    <img src="clock.svg" alt="Horaires">
+  </a>
+  <span style="font-size:9px; color:#555; font-weight:600;">Horaires</span>
+</div>
   </div>
 
   <!-- ══ BENTO GRID ══ -->
