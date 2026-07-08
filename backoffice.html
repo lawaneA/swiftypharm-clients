@@ -491,8 +491,8 @@ function flashSaved() {
 // ═══════════════════════════════════
 function initAuth() {
   // Set logo on login page
-  document.getElementById('login-logo-img').src = LOGO_B64_DATA;
-  document.getElementById('nav-logo-img').src = LOGO_B64_DATA;
+  const ll = document.getElementById("login-logo-img"); if(ll) ll.src = LOGO_B64_DATA;
+  const nl = document.getElementById("nav-logo-img"); if(nl) nl.src = LOGO_B64_DATA;
 
   const session = sessionStorage.getItem(SESSION_KEY);
   if (session === 'ok') { hideLogin(); return; }
@@ -1044,7 +1044,7 @@ function initApp() {
   fillNotif(cfg);
 }
 
-initAuth();
+document.addEventListener("DOMContentLoaded", initAuth);
 </script>
 </body>
 </html>
