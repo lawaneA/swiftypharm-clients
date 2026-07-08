@@ -36,238 +36,383 @@
 
     /* ══ BANNIÈRE ══ */
     .banniere {
-      width: calc(100% - 32px);
-      max-width: 448px;
-      height: 160px;
-      border-radius: 20px;
-      overflow: hidden;
-      flex-shrink: 0;
-      margin: 16px 0 0;
-    }
-    .banniere img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
+  width: calc(100% - 32px);
+  max-width: 448px;
+  height: 160px;
+  border-radius: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin: 16px 0 0;
+}
+.banniere img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
     /* ══ HEADER PROFIL ══ */
     .profile-section {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 10px; margin-bottom: 24px;
-      width: 100%; max-width: 480px; padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      width: 100%;
+      max-width: 480px;
+      padding: 0 16px;
     }
     .profile-avatar {
-      width: 96px; height: 96px; border-radius: 50%;
-      object-fit: cover; background: #ffffff;
-      margin-top: -48px; border: 3px solid #ffffff;
-      position: relative; z-index: 10;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ffffff;
+  margin-top: -48px;
+  border: 3px solid #ffffff;
+  position: relative;
+  z-index: 10;
+}
+    .profile-name {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: -0.5px;
+      text-align: center;
     }
-    .profile-name { font-size: 26px; font-weight: 800; color: #111; letter-spacing: -0.5px; text-align: center; }
-    .profile-sub  { font-size: 15px; color: #555; font-weight: 400; text-align: center; }
+    .profile-sub {
+      font-size: 15px;
+      color: #555;
+      font-weight: 400;
+      text-align: center;
+    }
 
     /* ══ ICÔNES DE CONTACT ══ */
     .contact-icons {
-      display: flex; gap: 11px; margin-top: 6px;
-      align-items: flex-start; justify-content: center;
+      display: flex;
+      gap: 11px;
+      margin-top: 6px;
+      align-items: flex-start;
+      justify-content: center;
     }
     .contact-icon-btn {
-      display: flex; align-items: center; justify-content: center;
-      background: none; border: none; cursor: pointer;
-      text-decoration: none; transition: transform 0.18s, opacity 0.18s;
-      padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.18s, opacity 0.18s;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 4px;
+}
+.contact-icon-btn:hover {
+  transform: scale(1.12);
+  opacity: 0.7;
+  box-shadow: none;
+}
+.contact-icon-btn img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+    .icon-label {
+      font-size: 9px;
+      color: #555;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 5px;
     }
-    .contact-icon-btn:hover { transform: scale(1.12); opacity: 0.7; }
-    .contact-icon-btn img { width: 28px; height: 28px; object-fit: contain; }
-    .icon-label { font-size: 9px; color: #555; font-weight: 600; text-align: center; margin-top: 5px; }
 
-    /* ══ BENTO ══ */
+    /* ══ LIENS SOCIAUX (sous les icônes) ══ */
+    .social-links {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      max-width: 480px;
+      padding: 0 16px;
+      margin-bottom: 12px;
+    }
+  
+   
+   
+    /* ══ BENTO GRID ══ */
     .bento {
-      width: 100%; display: flex; flex-direction: column;
-      gap: 12px; max-width: 480px; padding: 0 16px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 480px;
+      padding: 0 16px;
     }
 
     /* ══ CARD DE BASE ══ */
     .card {
-      border-radius: 20px; overflow: hidden; background: #ffffff;
-      position: relative; transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #ffffff;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
 
-    /* ══ CARD PROMO ══ */
+    /* ══ CARD PROMO (pleine largeur) ══ */
     .card-promo {
-      width: 100%; height: 200px; padding: 0; cursor: pointer;
+      width: 100%;
+      height: 200px; /* hauteur fixe */
+      padding: 0;
+      cursor: pointer;
     }
     .card-promo img.card-full-img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     /* ══ BENTO ORDONNANCE ══ */
     .card-ordonnance {
-      background: #ffffff; border-radius: 20px; padding: 24px; cursor: default;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px;
+      cursor: default;
     }
     .card-ordonnance:hover { transform: none; box-shadow: none; }
 
     /* ══ CHAMPS FORMULAIRE ══ */
-    .input-group label { display: block; margin-bottom: 7px; font-weight: 500; color: #111; font-size: 13px; }
+    .input-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 500;
+      color: #111;
+      font-size: 13px;
+    }
     .input-group input {
       width: 100%; padding: 11px 12px; border-radius: 10px;
-      border: 1.5px solid #d0d0d0; background: #f7f7f7; color: #111;
+      border: 1.5px solid #d0d0d0;
+      background: #f7f7f7; color: #111;
       font-family: 'Inter', sans-serif; font-size: 14px;
       margin-bottom: 14px; transition: border 0.2s;
     }
     .input-group input::placeholder { color: #aaa; }
     .input-group input:focus { outline: none; border-color: #0012ff; background: #fff; }
-    .input-group input.input-error { border-color: rgba(220,50,50,0.9) !important; }
-    .input-group input.input-ok   { border-color: rgba(40,180,100,0.8) !important; }
+    .input-group input.input-error { border-color: rgba(220, 50, 50, 0.9) !important; }
+    .input-group input.input-ok { border-color: rgba(40, 180, 100, 0.8) !important; }
     .field-error-msg { display: none; color: #cc2222; font-size: 11px; font-weight: 500; margin-top: -10px; margin-bottom: 12px; }
 
     /* ══ ZONE DÉPÔT ══ */
     .file-trigger-zone {
-      position: relative; padding: 16px; background: #f0f0f0;
-      border: 1.5px dashed #bbb; border-radius: 14px; cursor: pointer;
+      position: relative;
+      padding: 16px;
+      background: #f0f0f0;
+      border: 1.5px dashed #bbb;
+      border-radius: 14px;
+      cursor: pointer;
       transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
     .file-trigger-zone:hover { background: #e8e8e8; }
     .file-trigger-zone.drag-over {
-      background: #e8edff; border: 1.5px solid #0012ff;
+      background: #e8edff;
+      border: 1.5px solid #0012ff;
       box-shadow: 0 0 0 3px rgba(0,18,255,0.15);
     }
     .file-trigger-zone input[type="file"] {
-      position: absolute; top:0; left:0; width:100%; height:100%; opacity:0; cursor:pointer; z-index:20;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 20;
     }
     .file-info-row { display: flex; align-items: center; gap: 14px; }
 
     /* ══ ICÔNE DOSSIER ══ */
     .folder-icon-container { position: relative; width: 60px; height: 50px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15)); flex-shrink: 0; }
-    .folder-back { position: absolute; top:0; left:0; width:52px; height:40px; background:#c0c8e8; border-radius:5px 10px 5px 5px; }
-    .folder-back::before { content:''; position:absolute; top:-4px; left:0; width:20px; height:8px; background:#c0c8e8; border-radius:3px 3px 0 0; }
-    .folder-front { position:absolute; bottom:0; left:2px; width:56px; height:38px; background:#d8e0f5; border-radius:5px; transform:skewX(-2deg); }
-    .badge-files { position:absolute; bottom:2px; left:-8px; z-index:10; background:#0012ff; border:1px solid rgba(0,18,255,0.2); color:#fff; font-size:9px; font-weight:700; padding:2px 7px; border-radius:5px; letter-spacing:0.5px; }
+    .folder-back { position: absolute; top: 0; left: 0; width: 52px; height: 40px; background: #c0c8e8; border-radius: 5px 10px 5px 5px; }
+    .folder-back::before { content: ''; position: absolute; top: -4px; left: 0; width: 20px; height: 8px; background: #c0c8e8; border-radius: 3px 3px 0 0; }
+    .folder-front { position: absolute; bottom: 0; left: 2px; width: 56px; height: 38px; background: #d8e0f5; border-radius: 5px; transform: skewX(-2deg); }
+    .badge-files { position: absolute; bottom: 2px; left: -8px; z-index: 10; background: #0012ff; border: 1px solid rgba(0,18,255,0.2); color: #fff; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 5px; letter-spacing: 0.5px; }
 
     .text-details { display: flex; flex-direction: column; gap: 3px; }
-    .file-title   { color: #111; font-size: 15px; font-weight: 700; }
-    .file-subtitle{ color: #888; font-size: 11px; font-weight: 500; }
+    .file-title { color: #111; font-size: 15px; font-weight: 700; }
+    .file-subtitle { color: #888; font-size: 11px; font-weight: 500; }
 
     /* ══ CROIX ══ */
     .file-remove-btn {
-      position:absolute; top:8px; right:8px; z-index:30;
-      background:none; border:none; color:#aaa;
-      font-size:18px; line-height:1; cursor:pointer; padding:2px 4px;
-      border-radius:4px; display:none; transition:color 0.2s, transform 0.2s;
+      position: absolute; top: 8px; right: 8px; z-index: 30;
+      background: none; border: none; color: #aaa;
+      font-size: 18px; line-height: 1; cursor: pointer; padding: 2px 4px;
+      border-radius: 4px; display: none; transition: color 0.2s, transform 0.2s;
     }
-    .file-remove-btn:hover { color:#cc2222; transform:scale(1.2) rotate(90deg); }
+    .file-remove-btn:hover { color: #cc2222; transform: scale(1.2) rotate(90deg); }
 
     /* ══ APERÇU ══ */
-    .file-preview     { display:none; width:44px; height:44px; border-radius:8px; object-fit:cover; border:1px solid #ddd; flex-shrink:0; }
-    .file-preview-pdf { display:none; width:44px; height:44px; border-radius:8px; background:#e8edff; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-    .file-error-msg   { display:none; color:#cc2222; font-size:12px; font-weight:600; margin-top:8px; text-align:center; }
+    .file-preview { display: none; width: 44px; height: 44px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; flex-shrink: 0; }
+    .file-preview-pdf { display: none; width: 44px; height: 44px; border-radius: 8px; background: #e8edff; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+
+    .file-error-msg { display: none; color: #cc2222; font-size: 12px; font-weight: 600; margin-top: 8px; text-align: center; }
 
     /* ══ BARRE DE PROGRESSION ══ */
-    .progress-panel { margin-top:14px; background:#f0f0f0; border:1px solid #ddd; border-radius:12px; padding:12px 14px; display:none; flex-direction:column; gap:10px; }
-    .progress-status-row { display:flex; justify-content:space-between; align-items:center; }
-    .status-left { display:flex; align-items:center; gap:8px; }
-    .spinner { width:13px; height:13px; border:2px solid #555; border-right-color:transparent; border-radius:50%; animation:rotate 1s linear infinite; }
-    .status-text { color:#444; font-size:13px; }
-    .percentage  { color:#111; font-size:16px; font-weight:700; }
-    .progress-bar-bg   { width:100%; height:5px; background:#ddd; border-radius:10px; overflow:hidden; }
-    .progress-bar-fill { height:100%; width:0%; background:#0012ff; border-radius:10px; transition:width 0.5s ease-out; }
-    @keyframes rotate { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+    .progress-panel { margin-top: 14px; background: #f0f0f0; border: 1px solid #ddd; border-radius: 12px; padding: 12px 14px; display: none; flex-direction: column; gap: 10px; }
+    .progress-status-row { display: flex; justify-content: space-between; align-items: center; }
+    .status-left { display: flex; align-items: center; gap: 8px; }
+    .spinner { width: 13px; height: 13px; border: 2px solid #555; border-right-color: transparent; border-radius: 50%; animation: rotate 1s linear infinite; }
+    .status-text { color: #444; font-size: 13px; }
+    .percentage { color: #111; font-size: 16px; font-weight: 700; }
+    .progress-bar-bg { width: 100%; height: 5px; background: #ddd; border-radius: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 0%; background: #0012ff; border-radius: 10px; transition: width 0.5s ease-out; }
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     /* ══ BOUTON ENVOYER ══ */
     .btn-send {
-      width:100%; height:3.2em; border-radius:30em;
-      font-size:15px; font-family:'Poppins',inherit; font-weight:800;
-      border:none; cursor:pointer; color:#fff; background:#0012ff;
-      box-shadow:0 4px 16px rgba(0,18,255,0.25);
-      margin-top:16px; transition:all 0.2s; display:block;
+      width: 100%; height: 3.2em; border-radius: 30em;
+      font-size: 15px; font-family: 'Poppins', inherit; font-weight: 800;
+      border: none; cursor: pointer; color: #fff;
+      background: #0012ff;
+      box-shadow: 0 4px 16px rgba(0,18,255,0.25);
+      margin-top: 16px; transition: all 0.2s; display: block;
     }
-    .btn-send:hover:not(:disabled) { box-shadow:0 6px 24px rgba(0,18,255,0.4); transform:translateY(-1px); }
-    .btn-send:disabled { opacity:0.35; cursor:not-allowed; transform:none !important; box-shadow:none !important; }
+    .btn-send:hover:not(:disabled) { box-shadow: 0 6px 24px rgba(0,18,255,0.4); transform: translateY(-1px); }
+    .btn-send:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
     /* ══ FEEDBACK SUCCÈS ══ */
-    .success-overlay { display:none; flex-direction:column; align-items:center; gap:16px; padding:28px 16px 20px; text-align:center; }
-    .success-icon    { width:80px; height:80px; object-fit:contain; animation:pop-in 0.5s cubic-bezier(0.175,0.885,0.32,2.2) both; }
-    .success-title   { color:#111; font-size:20px; font-weight:800; }
-    .success-sub     { color:#555; font-size:13px; font-weight:500; line-height:1.6; }
-    .success-actions { display:flex; align-items:center; gap:10px; width:100%; margin-top:6px; }
-    .btn-back-home   { width:48px; height:48px; border-radius:12px; border:1.5px solid #ddd; background:#f0f0f0; color:#555; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background 0.2s; }
-    .btn-back-home:hover { background:#e0e0e0; color:#111; }
-    .btn-google-review { flex:1; height:48px; border-radius:12px; border:none; background:#0012ff; color:#fff; font-family:'Poppins',inherit; font-size:13px; font-weight:700; cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; transition:box-shadow 0.2s, transform 0.2s; }
-    .btn-google-review:hover { box-shadow:0 4px 16px rgba(0,18,255,0.3); transform:translateY(-1px); }
-    @keyframes pop-in { 0% { transform:scale(0); opacity:0; } 100% { transform:scale(1); opacity:1; } }
+    .success-overlay { display: none; flex-direction: column; align-items: center; gap: 16px; padding: 28px 16px 20px; text-align: center; }
+    .success-icon { width: 80px; height: 80px; object-fit: contain; animation: pop-in 0.5s cubic-bezier(0.175,0.885,0.32,2.2) both; }
+    .success-title { color: #111; font-size: 20px; font-weight: 800; }
+    .success-sub { color: #555; font-size: 13px; font-weight: 500; line-height: 1.6; }
+    .success-actions { display: flex; align-items: center; gap: 10px; width: 100%; margin-top: 6px; }
+    .btn-back-home { width: 48px; height: 48px; border-radius: 12px; border: 1.5px solid #ddd; background: #f0f0f0; color: #555; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+    .btn-back-home:hover { background: #e0e0e0; color: #111; }
+    .btn-google-review { flex: 1; height: 48px; border-radius: 12px; border: none; background: #0012ff; color: #fff; font-family: 'Poppins', inherit; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; transition: box-shadow 0.2s, transform 0.2s; }
+    .btn-google-review:hover { box-shadow: 0 4px 16px rgba(0,18,255,0.3); transform: translateY(-1px); }
+    @keyframes pop-in { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-  
+   
+  /* ══ MODALE HORAIRES ══ */
+  .modal-overlay {
+    display:none; position:fixed; inset:0; z-index:9000;
+    background:rgba(0,0,0,0.45); backdrop-filter:blur(4px);
+    align-items:flex-end; justify-content:center;
+  }
+  .modal-overlay.open { display:flex; }
+  .modal-sheet {
+    background:#fff; border-radius:24px 24px 0 0;
+    width:100%; max-width:480px; padding:24px 20px 40px;
+    animation:slide-up .3s cubic-bezier(.25,1,.5,1);
+  }
+  @keyframes slide-up { from { transform:translateY(100%); } to { transform:translateY(0); } }
+  .modal-handle { width:40px; height:4px; background:#e0e0e0; border-radius:2px; margin:0 auto 20px; }
+  .modal-title { font-size:18px; font-weight:800; color:#111; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .horaire-liste { display:flex; flex-direction:column; gap:6px; }
+  .horaire-ligne {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 14px; border-radius:12px; background:#f5f6fa;
+    font-size:14px;
+  }
+  .horaire-ligne.today { background:#e8eaff; }
+  .horaire-ligne .jour { font-weight:700; color:#111; min-width:90px; }
+  .horaire-ligne .heure { color:#0012ff; font-weight:600; }
+  .horaire-ligne .heure.ferme { color:#aaa; font-weight:500; }
+  .modal-close {
+    margin-top:18px; width:100%; padding:13px; border-radius:30px;
+    background:#f0f0f0; border:none; font-family:'Inter',sans-serif;
+    font-size:14px; font-weight:700; color:#111; cursor:pointer;
+  }
   </style>
 </head>
 <body>
 
   <!-- ══ BANNIÈRE ══ -->
   <div class="banniere">
-    <img id="banniere-img" src="banniere_test.png" alt="Bannière pharmacie">
+    <!-- ⚠️ IMPORTER : banniere_test.png -->
+    <img src="banniere_test.png" alt="Bannière pharmacie">
   </div>
 
   <!-- ══ HEADER PROFIL ══ -->
   <div class="profile-section">
-    <img class="profile-avatar" id="avatar-img" src="logo pharmacie general.jpg" alt="Logo pharmacie">
-    <div class="profile-name" id="profile-name">Pharmacie NHEAN</div>
-    <div class="profile-sub"  id="profile-sub">Votre pharmacie de confiance à Paris</div>
+    <!-- ⚠️ IMPORTER : logo pharmacie general.jpg -->
+    <img class="profile-avatar" src="logo pharmacie general.jpg" alt="Logo pharmacie">
+    <div class="profile-name">Pharmacie NHEAN</div>
+    <div class="profile-sub">Votre pharmacie de confiance à Paris</div>
 
+    <!-- 4 icônes de contact -->
     <div class="contact-icons">
-      <div style="display:flex;flex-direction:column;align-items:center;">
-        <a class="contact-icon-btn" id="link-phone" href="tel:+33781298075">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <a class="contact-icon-btn" href="tel:+33781298075">
           <img src="phone.svg" alt="Téléphone">
         </a>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;">
-        <a class="contact-icon-btn" id="link-maps" href="https://maps.app.goo.gl/sVoh48TPr2kfwsWB7" target="_blank">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <a class="contact-icon-btn" href="https://maps.app.goo.gl/sVoh48TPr2kfwsWB7" target="_blank">
           <img src="map-pin.svg" alt="Adresse">
         </a>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;">
-        <a class="contact-icon-btn" id="link-infos" href="#">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <a class="contact-icon-btn" href="#">
           <img src="infos.svg" alt="Infos">
         </a>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;">
-        <a class="contact-icon-btn" id="link-clock" href="#">
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <a class="contact-icon-btn" href="#">
           <img src="clock.svg" alt="Horaires">
         </a>
       </div>
     </div>
   </div>
 
-  <!-- ══ LIENS SOCIAUX ══ -->
-  <div style="display:flex;gap:32px;justify-content:center;align-items:flex-start;width:100%;max-width:480px;padding:0 16px;margin-bottom:20px;">
-    <a id="link-google" href="avis.html" style="display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;">
-      <img src="google-avis-icon.png" alt="Google Avis" style="width:100px;height:100px;object-fit:contain;border-radius:20px;">
-      <div id="text-google" style="text-align:center;font-size:13px;font-weight:500;color:#111;line-height:1.4;">Notez nous sur<br>Google !</div>
-    </a>
-    <a id="link-instagram" href="https://www.instagram.com/swiftup_fr" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;">
-      <img src="instagram-icon.png" alt="Instagram" style="width:100px;height:100px;object-fit:contain;border-radius:22px;">
-      <div id="text-instagram" style="text-align:center;font-size:13px;font-weight:500;color:#111;line-height:1.4;">Suivez nous sur<br>Instagram !</div>
-    </a>
+ <!-- ══ LIENS SOCIAUX ══ -->
+<div style="display:flex; gap:32px; justify-content:center; align-items:flex-start; width:100%; max-width:480px; padding:0 16px; margin-bottom:20px;">
+
+  <!-- Google Avis -->
+  <a href="avis.html" style="display:flex; flex-direction:column; align-items:center; gap:10px; text-decoration:none;">
+    <!-- ⚠️ IMPORTER : google-avis-icon.png -->
+    <img src="google-avis-icon.png" alt="Google Avis" style="width:100px; height:100px; object-fit:contain; border-radius:20px;">
+
+    <div style="text-align:center; font-size:13px; font-weight:500; color:#111; line-height:1.4;">
+      Notez nous sur <br>Google !
+    </div>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/swiftup_fr" target="_blank" style="display:flex; flex-direction:column; align-items:center; gap:10px; text-decoration:none;">
+    <!-- ⚠️ IMPORTER : instagram-icon.png -->
+    <img src="instagram-icon.png" alt="Instagram" style="width:100px; height:100px; object-fit:contain; border-radius:22px;">
+    
+    <div style="text-align:center; font-size:13px; font-weight:500; color:#111; line-height:1.4;">
+      Suivez nous sur<br>Instagram !
+    </div>
+  </a>
+
+</div>
+
+
   </div>
 
   <!-- ══ BENTO ══ -->
   <div class="bento">
 
-    <!-- Promo du mois — clique → promos.html -->
-    <a href="promos.html" class="card card-promo" style="text-decoration:none;display:block;">
-      <img class="card-full-img" id="promo-banner-img" src="promo-du-mois2.png" alt="Promo du mois">
-    </a>
+    <!-- Promo du mois — pleine largeur -->
+    <!-- ⚠️ IMPORTER : promo-du-mois.png — dimensions idéales : 960 × 400 px -->
+    <div class="card card-promo">
+      <img class="card-full-img" src="promo-du-mois.png" alt="Promo du mois">
+    </div>
 
-    <!-- Formulaire ordonnance -->
+    <!-- Formulaire ordonnance — pleine largeur -->
     <div class="card card-ordonnance">
       <div id="form-content">
-        <div style="color:#111;font-weight:800;font-size:18px;margin-bottom:24px;text-align:center;">Envoyer votre ordonnance</div>
+        <div style="color:#111; font-weight:800; font-size:18px; margin-bottom:24px; text-align:center;">Envoyer votre ordonnance</div>
+
         <div class="input-group">
           <label for="sender-name">Nom et Prénom :</label>
           <input type="text" id="sender-name" autocomplete="name" placeholder="Ex: DUPONT Jean">
           <div class="field-error-msg" id="name-error">Veuillez renseigner votre nom et prénom.</div>
+
           <label for="sender-phone">Téléphone — pour vous rappeler si besoin :</label>
           <input type="tel" id="sender-phone" autocomplete="tel" placeholder="06 12 34 56 78">
           <div class="field-error-msg" id="phone-error">Format invalide.</div>
         </div>
+
         <div class="file-trigger-zone" id="drop-zone">
-          <button class="file-remove-btn" id="removeFileBtn" title="Supprimer">✕</button>
+          <button class="file-remove-btn" id="removeFileBtn" title="Supprimer le fichier">✕</button>
           <input type="file" id="fileInput" accept="image/*,application/pdf">
           <div class="file-info-row">
             <img class="file-preview" id="filePreviewImg" alt="Aperçu">
@@ -284,6 +429,7 @@
           </div>
         </div>
         <div class="file-error-msg" id="file-error-msg">Fichier trop lourd (5 MB max). Veuillez en choisir un autre.</div>
+
         <div id="progressPanel" class="progress-panel">
           <div class="progress-status-row">
             <div class="status-left">
@@ -292,59 +438,30 @@
             </div>
             <div class="percentage" id="percentage">0%</div>
           </div>
-          <div class="progress-bar-bg"><div id="progressBarFill" class="progress-bar-fill"></div></div>
+          <div class="progress-bar-bg">
+            <div id="progressBarFill" class="progress-bar-fill"></div>
+          </div>
         </div>
+
         <button class="btn-send" id="btn-send" onclick="sendWithAttachment()" disabled>Envoyer à la pharmacie</button>
       </div>
 
       <div class="success-overlay" id="success-overlay">
+        <!-- ⚠️ IMPORTER : confirm_icon.png -->
         <img class="success-icon" src="confirm_icon.png" alt="Succès">
         <div class="success-title">Ordonnance envoyée !</div>
         <div class="success-sub">La pharmacie a bien reçu votre document.<br>Nous vous contacterons si besoin.</div>
         <div class="success-actions">
           <button class="btn-back-home" id="btn-back-home" title="Retour">✕</button>
-          <a id="btn-google-review" href="avis.html" class="btn-google-review">⭐ Vous satisfait ? Laissez-nous un avis !</a>
+          <a href="avis.html" class="btn-google-review">⭐ Vous satisfait ? Laissez-nous un avis !</a>
         </div>
       </div>
     </div>
 
   </div>
 
-  
+
   <script>
-  // ── CHARGEMENT CONFIG DEPUIS LOCALSTORAGE ──
-const SUPABASE_URL = 'https://twewgozdynowoieyqrcf.supabase.co/rest/v1/';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3ZXdnb3pkeW5vd29pZXlxcmNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MzM4MjEsImV4cCI6MjA5OTEwOTgyMX0.p8niB1AotODvOlTg529rWz4BsPVRwHqflx5EXasgn5s';
-const SLUG = 'pharmacie-nhean';
-
-async function loadConfig() {
-  // Charger infos pharmacie
-  const resP = await fetch(
-    `${SUPABASE_URL}/rest/v1/pharmacies?slug=eq.${SLUG}&select=*`,
-    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-  );
-  const [pharmacie] = await resP.json();
-  if (pharmacie) {
-    document.getElementById('profile-name').textContent = pharmacie.nom || '';
-    document.getElementById('profile-sub').textContent  = pharmacie.soustitre || '';
-    document.getElementById('link-phone').href    = 'tel:' + (pharmacie.telephone || '');
-    document.getElementById('link-maps').href     = pharmacie.adresse || '#';
-    document.getElementById('link-google').href   = pharmacie.google_avis || '#';
-    document.getElementById('link-instagram').href= pharmacie.instagram || '#';
-  }
-
-  // Charger les promos (pour promos.html)
-  const resPromos = await fetch(
-    `${SUPABASE_URL}/rest/v1/promos?pharmacie_slug=eq.${SLUG}&actif=eq.true&order=position`,
-    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }
-  );
-  const promos = await resPromos.json();
-  renderPromos(promos); // ta fonction d'affichage existante
-}
-
-loadConfig();
-
-  // ── RÉFÉRENCES DOM ──
   const fileInput      = document.getElementById('fileInput');
   const Title          = document.getElementById('Title');
   const Subtitle       = document.getElementById('Subtitle');
@@ -435,10 +552,10 @@ loadConfig();
   function validatePhone() {
     const val = phoneInput.value.trim().replace(/\s+/g, '');
     const err = document.getElementById('phone-error');
-    if (val.length === 0) { phoneInput.classList.remove('input-error','input-ok'); err.style.display='none'; return; }
+    if (val.length === 0) { phoneInput.classList.remove('input-error', 'input-ok'); err.style.display = 'none'; return; }
     let ok = false;
     if (val.startsWith('0')) ok = val.length === 10 && /^\d+$/.test(val);
-    else if (val.startsWith('+33')) ok = val.replace(/^\+33/,'').replace(/\D/g,'').length === 9;
+    else if (val.startsWith('+33')) ok = val.replace(/^\+33/, '').replace(/\D/g,'').length === 9;
     else ok = /^\d+$/.test(val) && val.length >= 7;
     phoneInput.classList.toggle('input-error', !ok);
     phoneInput.classList.toggle('input-ok', ok);
@@ -457,6 +574,7 @@ loadConfig();
     const file = e.dataTransfer.files[0];
     if (file) handleFile(file);
   });
+
   fileInput.addEventListener('change', function(e) { handleFile(e.target.files[0]); });
 
   function handleFile(file) {
@@ -464,8 +582,8 @@ loadConfig();
     if (sizeMB > MAX_SIZE_MB) { playSound('error'); fileErrorMsg.style.display = 'block'; return; }
     fileErrorMsg.style.display = 'none';
     selectedFile = file;
-    Title.innerText   = file.name;
-    Subtitle.innerText= sizeMB.toFixed(2) + ' MB';
+    Title.innerText = file.name;
+    Subtitle.innerText = sizeMB.toFixed(2) + ' MB';
     removeFileBtn.style.display = 'block';
     folderIcon.style.display = 'none';
     if (file.type === 'application/pdf') {
@@ -488,16 +606,16 @@ loadConfig();
   removeFileBtn.addEventListener('click', function(e) {
     e.stopPropagation();
     selectedFile = null; fileInput.value = '';
-    Title.innerText    = 'Déposez votre ordonnance ici';
+    Title.innerText = 'Déposez votre ordonnance ici';
     Subtitle.innerText = 'JPG, PNG ou PDF · 5 MB max';
-    removeFileBtn.style.display  = 'none';
+    removeFileBtn.style.display = 'none';
     filePreviewImg.style.display = 'none';
     filePreviewPdf.style.display = 'none';
-    folderIcon.style.display     = 'block';
-    progressPanel.style.display  = 'none';
-    progressBarFill.style.width  = '0%';
-    spinner.style.display        = 'block';
-    fileErrorMsg.style.display   = 'none';
+    folderIcon.style.display = 'block';
+    progressPanel.style.display = 'none';
+    progressBarFill.style.width = '0%';
+    spinner.style.display = 'block';
+    fileErrorMsg.style.display = 'none';
     updateSendBtn();
   });
 
@@ -559,7 +677,8 @@ loadConfig();
       };
       emailjs.send('service_3svkyii', 'template_hlj4f0g', templateParams)
         .then(function() {
-          trackSend(); playSound('success');
+          trackSend();
+          playSound('success');
           formContent.style.display = 'none';
           successOverlay.style.display = 'flex';
         }, function(error) {
@@ -582,24 +701,91 @@ loadConfig();
   // ── BOUTON RETOUR ──
   document.getElementById('btn-back-home').addEventListener('click', function() {
     successOverlay.style.display = 'none';
-    formContent.style.display    = 'block';
+    formContent.style.display = 'block';
     selectedFile = null; fileInput.value = '';
     nameInput.value = '';
     if (phoneInput) phoneInput.value = '';
-    Title.innerText    = 'Déposez votre ordonnance ici';
+    Title.innerText = 'Déposez votre ordonnance ici';
     Subtitle.innerText = 'JPG, PNG ou PDF · 5 MB max';
-    removeFileBtn.style.display  = 'none';
+    removeFileBtn.style.display = 'none';
     filePreviewImg.style.display = 'none';
     filePreviewPdf.style.display = 'none';
-    folderIcon.style.display     = 'block';
-    progressPanel.style.display  = 'none';
-    progressBarFill.style.width  = '0%';
-    spinner.style.display        = 'block';
-    nameInput.classList.remove('input-ok','input-error');
-    if (phoneInput) phoneInput.classList.remove('input-ok','input-error');
+    folderIcon.style.display = 'block';
+    progressPanel.style.display = 'none';
+    progressBarFill.style.width = '0%';
+    spinner.style.display = 'block';
+    nameInput.classList.remove('input-ok', 'input-error');
+    if (phoneInput) phoneInput.classList.remove('input-ok', 'input-error');
     updateSendBtn();
   });
+
+  // ── MODALE HORAIRES ──
+  const JOURS_FR = [
+    { id:'lun', label:'Lundi' },
+    { id:'mar', label:'Mardi' },
+    { id:'mer', label:'Mercredi' },
+    { id:'jeu', label:'Jeudi' },
+    { id:'ven', label:'Vendredi' },
+    { id:'sam', label:'Samedi' },
+    { id:'dim', label:'Dimanche' },
+  ];
+  const JOUR_INDEX = ['dim','lun','mar','mer','jeu','ven','sam'];
+
+  document.getElementById('link-clock').addEventListener('click', function(e) {
+    e.preventDefault();
+    openHoraires();
+  });
+
+  function openHoraires() {
+    const liste = document.getElementById('horaire-liste');
+    const todayId = JOUR_INDEX[new Date().getDay()];
+    let semaine = {};
+    try {
+      const raw = localStorage.getItem('swiftlink_config');
+      if (raw) {
+        const cfg = JSON.parse(raw);
+        semaine = cfg.pharmacy?.horairesSemaine || {};
+      }
+    } catch(e) {}
+
+    const hasDays = Object.keys(semaine).length > 0;
+    if (!hasDays) {
+      liste.innerHTML = '<div style="color:#aaa;font-size:13px;text-align:center;padding:12px 0">Horaires non renseignés.<br>Contactez-nous par téléphone.</div>';
+    } else {
+      liste.innerHTML = JOURS_FR.map(j => {
+        const d = semaine[j.id] || { open:'09:00', close:'19:00', closed:false };
+        const isToday = j.id === todayId;
+        const todayBadge = isToday ? " <span style=\"font-size:10px;color:#0012ff;background:#d0d4ff;padding:1px 6px;border-radius:10px;font-weight:700\">Auj.</span>" : '';
+        const heureHtml = d.closed
+          ? '<span class="heure ferme">Fermé</span>'
+          : `<span class="heure">${d.open} – ${d.close}</span>`;
+        return `<div class="horaire-ligne${isToday ? ' today' : ''}">
+          <span class="jour">${j.label}${todayBadge}</span>
+          ${heureHtml}
+        </div>`;
+      }).join('');
+    }
+    document.getElementById('modal-horaires').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeHoraires() {
+    document.getElementById('modal-horaires').classList.remove('open');
+    document.body.style.overflow = '';
+  }
   </script>
+
+  <!-- ══ MODALE HORAIRES ══ -->
+  <div class="modal-overlay" id="modal-horaires" onclick="if(event.target===this)closeHoraires()">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">🕐 Nos horaires</div>
+      <div class="horaire-liste" id="horaire-liste">
+        <div style="color:#aaa;font-size:13px">Chargement...</div>
+      </div>
+      <button class="modal-close" onclick="closeHoraires()">Fermer</button>
+    </div>
+  </div>
 
 </body>
 </html>
