@@ -793,7 +793,6 @@
         .single();
 
       if (error && error.code !== 'PGRST116') throw error; // On ignore l'erreur si aucune ligne n'existe encore
-      console.log("DEBUG horaires — data:", data, "error:", error);
       if (data && data.horaires) {
         semaine = data.horaires;
       }
