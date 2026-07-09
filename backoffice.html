@@ -528,6 +528,31 @@ async function syncToSupabase(cfg, indicator) {
 
     if (!response.ok) throw new Error('Erreur réseau Supabase');
 
+    // Envoi des promos vers la table 'promos' (upsert sur pharmacie_slug + position)
+    const promosPayload = cfg.promos.map((p, i) => ({
+      pharmacie_slug: SLUG,
+      position: i + 1, // La table exige position entre 1 et 8
+      actif: p.active,
+      nom: p.name,
+      image_url: p.imgData || p.img || '',
+      prix_avant: p.priceBefore ? parseFloat(p.priceBefore) : null,
+      prix_apres: p.priceAfter ? parseFloat(p.priceAfter) : null,
+      badge: p.badge
+    }));
+
+    const promosResponse = await fetch(`${SUPABASE_URL}promos?on_conflict=pharmacie_slug,position`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify(promosPayload)
+    });
+
+    if (!promosResponse.ok) throw new Error('Erreur réseau Supabase (promos)');
+
     // Succès
     indicator.textContent = 'En ligne ✓';
     indicator.style.color = '#16a34a'; // Vert
