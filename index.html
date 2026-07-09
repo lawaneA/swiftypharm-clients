@@ -337,6 +337,16 @@
     font-size:14px; font-weight:700; color:#111; cursor:pointer;
   }
 
+    /* ══ CADRE DESKTOP (ombre légère, n'impacte que l'affichage large écran) ══ */
+    @media (min-width: 769px) {
+      body {
+        max-width: 580px;
+        margin: 24px auto;
+        border-radius: 28px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+      }
+    }
   </style>
 </head>
 <body>
