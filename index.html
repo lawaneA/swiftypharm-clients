@@ -412,9 +412,9 @@
 
     <!-- Promo du mois — pleine largeur -->
     <!-- ⚠️ IMPORTER : promo-du-mois.png — dimensions idéales : 960 × 400 px -->
-    <div class="card card-promo">
-      <img class="card-full-img" src="promo-du-mois2.png" alt="Promo du mois">
-    </div>
+    <a class="card card-promo" href="promos.html" style="display:block;text-decoration:none;">
+      <img class="card-full-img" src="promo-du-mois.png" alt="Promo du mois">
+    </a>
 
     <!-- Formulaire ordonnance — pleine largeur -->
     <div class="card card-ordonnance">
@@ -794,7 +794,7 @@
 
       if (error && error.code !== 'PGRST116') throw error; // On ignore l'erreur si aucune ligne n'existe encore
       if (data && data.horaires) {
-        semaine = data.horaires;
+        semaine = typeof data.horaires === 'string' ? JSON.parse(data.horaires) : data.horaires;
       }
     } catch(e) {
       console.error("Erreur de récupération des horaires :", e);
