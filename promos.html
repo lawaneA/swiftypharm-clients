@@ -65,6 +65,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .product-card:hover {
@@ -127,6 +128,29 @@
     .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
     .empty-state p { font-size: 15px; line-height: 1.6; }
 
+    /* ══ POPUP IMAGE PLEIN ÉCRAN ══ */
+    .img-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9500;
+      background: rgba(0,0,0,0.85);
+      align-items: center; justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .img-modal-overlay.open { display: flex; }
+    .img-modal-overlay img {
+      max-width: 100%; max-height: 100%;
+      border-radius: 16px;
+      object-fit: contain;
+      animation: img-pop 0.25s cubic-bezier(0.25,1,0.5,1);
+    }
+    @keyframes img-pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .img-modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: none; color: #fff;
+      font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
     /* ══ LOADER ══ */
     .loader-section { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; margin-top:48px; width:100%; }
     .loader-label { font-size:12px; font-weight:500; color:rgba(0,18,255,0.45); letter-spacing:0.5px; }
@@ -157,6 +181,12 @@
   <!-- ══ GRILLE ══ -->
   <div class="promo-grid" id="promo-grid">
     <!-- Rempli par JS -->
+  </div>
+
+  <!-- ══ POPUP IMAGE ══ -->
+  <div class="img-modal-overlay" id="img-modal" onclick="closeImgModal()">
+    <button class="img-modal-close" onclick="closeImgModal()">✕</button>
+    <img id="img-modal-src" src="" alt="Produit en promotion">
   </div>
 
   <!-- ══ LOADER ══ -->
@@ -218,7 +248,7 @@
       const pctHtml   = discount  ? `<span class="discount-pct">${discount}</span>`               : '';
 
       return `
-        <div class="product-card">
+        <div class="product-card" onclick="openImgModal('${imgSrc.replace(/'/g, "\\'")}')">
           <div class="product-img-wrap">
             <img src="${imgSrc}" alt="${nom}" onerror="this.src='placeholder-product.png'">
             ${badgeHtml}
@@ -233,6 +263,17 @@
           </div>
         </div>`;
     }).join('');
+  }
+
+  function openImgModal(src) {
+    document.getElementById('img-modal-src').src = src;
+    document.getElementById('img-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeImgModal() {
+    document.getElementById('img-modal').classList.remove('open');
+    document.body.style.overflow = '';
   }
 
   renderPromos();
