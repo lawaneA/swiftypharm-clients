@@ -282,7 +282,7 @@
 
    
 
-    /* ══ MODALE HORAIRES ══ */
+    /* ══ MODALE HORAIRES / INFOS ══ */
     .modal-overlay {
       display:none; position:fixed; inset:0; z-index:9000;
       background:rgba(0,0,0,0.45); backdrop-filter:blur(4px);
@@ -292,11 +292,13 @@
     .modal-sheet {
       background:#fff; border-radius:24px 24px 0 0;
       width:100%; max-width:480px; padding:24px 20px 40px;
+      max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;
+      overscroll-behavior:contain;
       animation:slide-up .3s cubic-bezier(.25,1,.5,1);
     }
     @keyframes slide-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
     .modal-handle { width:40px; height:4px; background:#e0e0e0; border-radius:2px; margin:0 auto 20px; }
-    .modal-title { font-size:18px; font-weight:800; color:#111; margin-bottom:18px; }
+    .modal-title { font-size:19px; font-weight:800; color:#0012ff; margin-bottom:18px; text-align:center; }
     .horaire-liste { display:flex; flex-direction:column; gap:6px; }
     .horaire-ligne {
       display:flex; align-items:center; justify-content:space-between;
@@ -312,6 +314,46 @@
       font-size:14px; font-weight:700; color:#111; cursor:pointer;
     }
 
+    /* ══ POPUP INFOS ══ */
+    .infos-section-title {
+      font-size:15px; font-weight:800; color:#111; margin:32px 0 12px;
+    }
+    .infos-section-title:first-child { margin-top: 0; }
+    .infos-intro {
+      font-size:13px; color:#666; margin-bottom:14px; line-height:1.5;
+    }
+    .urgence-ligne {
+      display:flex; align-items:center; gap:12px;
+      padding:12px 14px; border-radius:12px; background:#f5f6fa;
+      margin-bottom:8px;
+    }
+    .urgence-numero {
+      font-size:18px; font-weight:800; color:#0012ff;
+      min-width:44px; text-align:center;
+    }
+    .urgence-texte { display:flex; flex-direction:column; gap:1px; }
+    .urgence-nom { font-size:14px; font-weight:700; color:#111; }
+    .urgence-desc { font-size:12px; color:#777; line-height:1.4; }
+    .infos-garde-box {
+      background:#e8eaff; border-radius:14px; padding:14px 16px;
+      margin:24px 0; font-size:13px; color:#333; line-height:1.5; text-align:center;
+    }
+    .infos-garde-box a {
+      color:#0012ff; font-weight:700; text-decoration:none;
+    }
+    .docteur-box {
+      display:flex; align-items:center; gap:12px;
+      background:#f5f6fa; border-radius:14px; padding:14px 16px; margin-top:6px;
+    }
+    .docteur-avatar {
+      width:44px; height:44px; border-radius:50%;
+      background:#0012ff; color:#fff; display:flex; align-items:center; justify-content:center;
+      font-weight:800; font-size:16px; flex-shrink:0;
+    }
+    .docteur-info { display:flex; flex-direction:column; gap:1px; }
+    .docteur-nom { font-size:14px; font-weight:800; color:#111; }
+    .docteur-titre { font-size:12px; color:#666; }
+    
     /* ══ CADRE DESKTOP (ombre légère, n'impacte que l'affichage large écran) ══ */
     @media (min-width: 769px) {
       html {
@@ -353,7 +395,7 @@
         </a>
       </div>
       <div style="display:flex; flex-direction:column; align-items:center;">
-        <a class="contact-icon-btn" href="#">
+        <a class="contact-icon-btn" id="link-infos" href="#">
           <img src="infos.svg" alt="Infos">
         </a>
       </div>
@@ -716,9 +758,68 @@
   <div class="modal-overlay" id="modal-horaires" onclick="if(event.target===this)closeHoraires()">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
-      <div class="modal-title">🕐 Nos horaires</div>
+      <div class="modal-title">Nos horaires</div>
       <div class="horaire-liste" id="horaire-liste"></div>
       <button class="modal-close" onclick="closeHoraires()">Fermer</button>
+    </div>
+  </div>
+
+  <!-- ══ MODALE INFOS ══ -->
+  <div class="modal-overlay" id="modal-infos" onclick="if(event.target===this)closeInfos()">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">Informations utiles</div>
+
+      <div class="infos-section-title">En cas d'urgence</div>
+      <div class="infos-intro">Voici les numéros principaux à contacter pour vos urgences.</div>
+
+      <div class="urgence-ligne">
+        <div class="urgence-numero">15</div>
+        <div class="urgence-texte">
+          <div class="urgence-nom">Samu</div>
+          <div class="urgence-desc">En cas d'urgences vitales</div>
+        </div>
+      </div>
+
+      <div class="urgence-ligne">
+        <div class="urgence-numero">18</div>
+        <div class="urgence-texte">
+          <div class="urgence-nom">Pompiers</div>
+          <div class="urgence-desc">Situation de péril ou accident</div>
+        </div>
+      </div>
+
+      <div class="urgence-ligne">
+        <div class="urgence-numero">114</div>
+        <div class="urgence-texte">
+          <div class="urgence-nom">Sourds / Malentendants</div>
+          <div class="urgence-desc">Numéro unique, national et gratuit, accessible par visiophonie, tchat, SMS ou fax, 24h/24, 7j/7.</div>
+        </div>
+      </div>
+
+      <div class="urgence-ligne">
+        <div class="urgence-numero">17</div>
+        <div class="urgence-texte">
+          <div class="urgence-nom">Police secours</div>
+          <div class="urgence-desc">Signaler une infraction</div>
+        </div>
+      </div>
+
+      <div class="infos-garde-box">
+        Pour connaître la pharmacie de garde près de chez vous, rendez-vous sur<br>
+        <a href="https://www.3237.fr" target="_blank">www.3237.fr</a>
+      </div>
+
+      <div class="infos-section-title">Votre docteur en pharmacie</div>
+      <div class="docteur-box">
+        <div class="docteur-avatar" id="docteur-initiales">DR</div>
+        <div class="docteur-info">
+          <div class="docteur-nom" id="docteur-nom">Dr. Christophe DELAUNAY</div>
+          <div class="docteur-titre">Pharmacien Titulaire — Docteur en pharmacie</div>
+        </div>
+      </div>
+
+      <button class="modal-close" onclick="closeInfos()">Fermer</button>
     </div>
   </div>
 
@@ -736,12 +837,13 @@
     await openHoraires();
   });
 
-  async function openHoraires() {
+ async function openHoraires() {
     const liste   = document.getElementById('horaire-liste');
     const todayId = JOUR_INDEX[new Date().getDay()];
 
     liste.innerHTML = '<div style="color:#555;font-size:14px;text-align:center;padding:16px 0">Chargement des horaires...</div>';
     document.getElementById('modal-horaires').classList.add('open');
+    document.body.style.overflow = 'hidden';
 
     let semaine = {};
 
@@ -777,8 +879,36 @@
     }
   }
 
-  function closeHoraires() {
+ function closeHoraires() {
     document.getElementById('modal-horaires').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  </script>
+
+  <script>
+  // ── MODALE INFOS ──
+  document.getElementById('link-infos').addEventListener('click', function(e) {
+    e.preventDefault();
+    openInfos();
+  });
+
+  function openInfos() {
+    const nomEl = document.getElementById('docteur-nom');
+    const avatarEl = document.getElementById('docteur-initiales');
+    const nomComplet = nomEl.textContent.replace(/^Dr\.?\s*/i, '').trim();
+    const parts = nomComplet.split(' ').filter(Boolean);
+    const initiales = parts.length >= 2
+      ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+      : nomComplet.substring(0, 2).toUpperCase();
+    avatarEl.textContent = initiales;
+
+    document.getElementById('modal-infos').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeInfos() {
+    document.getElementById('modal-infos').classList.remove('open');
+    document.body.style.overflow = '';
   }
   </script>
 </body>
