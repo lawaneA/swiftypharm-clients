@@ -728,7 +728,7 @@
         my_file:      reader.result,
         sent_at:      new Date().toLocaleString('fr-FR')
       };
-      emailjs.send('service_ehw7pcv, 'template_0ydv3ac', templateParams)
+      emailjs.send('service_ehw7pcv', 'template_0ydv3ac', templateParams)
         .then(function() {
           trackSend();
           playSound('success');
