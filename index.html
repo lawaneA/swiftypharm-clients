@@ -194,13 +194,66 @@
     }
 
     /* ══ BENTO ORDONNANCE ══ */
+    /* ══ BENTO ORDONNANCE — nouvelle structure 3 parties ══ */
     .card-ordonnance {
       background: #ffffff;
       border-radius: 20px;
-      padding: 24px;
+      padding: 0;
       cursor: default;
+      overflow: hidden;
     }
     .card-ordonnance:hover { transform: none; box-shadow: none; }
+
+    /* ── Bandeau haut (bleu, coin coupé) ── */
+    .ordonnance-top {
+      position: relative;
+      background: #0012ff;
+      background-image: url('up-upload.png');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 20px 24px 28px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 32px 100%, 0 calc(100% - 32px));
+    }
+    .ordonnance-top-title {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .ordonnance-top-sub {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 18px;
+    }
+    .ordonnance-top-label {
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+    .ordonnance-top-sub2 {
+      font-size: 11px;
+      font-weight: 500;
+      opacity: 0.75;
+      margin-top: 2px;
+    }
+
+    /* ── Corps blanc (formulaire, inchangé) ── */
+    .ordonnance-body {
+      background: #fff;
+      padding: 24px;
+    }
+
+    /* ── Bandeau bas (bleu, encoche) ── */
+    .ordonnance-bottom {
+      position: relative;
+      height: 40px;
+      background: #0012ff;
+      background-image: url('down-upload.png');
+      background-size: cover;
+      background-position: center;
+      clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%);
+    }
 
     /* ══ CHAMPS FORMULAIRE ══ */
     .input-group label {
@@ -442,9 +495,19 @@
 
     <!-- Formulaire ordonnance — pleine largeur -->
     <div class="card card-ordonnance">
+      <div class="ordonnance-top">
+        <div class="ordonnance-top-title">Envoyer votre ordonnance</div>
+        <div class="ordonnance-top-sub">
+          <div>
+            <div class="ordonnance-top-label">Envoi sécurisé</div>
+            <div class="ordonnance-top-sub2">Réception en 5 secondes</div>
+          </div>
+        </div>
+      </div>
+      <div class="ordonnance-body">
       <div id="form-content">
-        <div style="color:#111; font-weight:800; font-size:18px; margin-bottom:24px; text-align:center;">Envoyer votre ordonnance</div>
 
+        
         <div class="input-group">
           <label for="sender-name">Nom et Prénom :</label>
           <input type="text" id="sender-name" autocomplete="name" placeholder="Ex: DUPONT Jean">
@@ -501,7 +564,8 @@
         </div>
       </div>
     </div>
-
+      <div class="ordonnance-bottom"></div>
+   </div>
   </div>
 
   <!-- ══ LOADER ══ -->
