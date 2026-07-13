@@ -170,25 +170,33 @@
 <body>
 
   <!-- ══ HEADER ══ -->
-  <div class="page-header">
-    <a class="btn-back" href="index.html">←</a>
-    <div>
-      <div class="header-title">Promos du mois 🏷️</div>
-      <div class="header-sub" id="pharmacie-name">Pharmacie NHEAN</div>
-    </div>
+ <div class="page-header" style="justify-content:center;">
+    <a class="btn-back" href="index.html" style="position:absolute;left:16px;">←</a>
+    <a href="https://www.easypara.fr/promotions-et-nouveautes.html" target="_blank"
+       style="font-size:17px;font-weight:800;color:#0012ff;text-decoration:none;text-align:center;">
+      Promotions &amp; Nouveautés
+    </a>
   </div>
 
+  
   <!-- ══ GRILLE ══ -->
   <div class="promo-grid" id="promo-grid">
     <!-- Rempli par JS -->
   </div>
 
-  <!-- ══ POPUP IMAGE ══ -->
-  <div class="img-modal-overlay" id="img-modal" onclick="closeImgModal()">
+ <div class="img-modal-overlay" id="img-modal" onclick="closeImgModal()">
     <button class="img-modal-close" onclick="closeImgModal()">✕</button>
-    <img id="img-modal-src" src="" alt="Produit en promotion">
+    <div style="display:flex;gap:16px;align-items:flex-start;max-width:100%;background:#1a1a1a;border-radius:20px;padding:16px;cursor:default" onclick="event.stopPropagation()">
+      <img id="img-modal-src" src="" alt="Produit" style="width:180px;height:180px;object-fit:cover;border-radius:12px;flex-shrink:0;">
+      <div style="display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:0;">
+        <div id="img-modal-name" style="font-size:14px;font-weight:700;color:#fff;line-height:1.4;"></div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div id="img-modal-before" style="font-size:13px;color:#aaa;text-decoration:line-through;font-weight:500;"></div>
+          <div id="img-modal-after" style="font-size:20px;font-weight:800;color:#0012ff;"></div>
+        </div>
+      </div>
+    </div>
   </div>
-
  
   <script>
   const SLUG = 'pharmacie-nhean'; // ⚠️ Identifiant unique de cette pharmacie
@@ -240,7 +248,7 @@
       const pctHtml   = discount  ? `<span class="discount-pct">${discount}</span>`               : '';
 
       return `
-        <div class="product-card" onclick="openImgModal('${imgSrc.replace(/'/g, "\\'")}')">
+        <div class="product-card" onclick="openImgModal('${imgSrc.replace(/'/g,"\\'")}', '${nom.replace(/'/g,"\\'")}', ${prixAvant||0}, ${prixApres||0})"
           <div class="product-img-wrap">
             <img src="${imgSrc}" alt="${nom}" onerror="this.src='placeholder-product.png'">
             ${badgeHtml}
@@ -257,8 +265,11 @@
     }).join('');
   }
 
-  function openImgModal(src) {
+  function openImgModal(src, nom, avant, apres) {
     document.getElementById('img-modal-src').src = src;
+    document.getElementById('img-modal-name').textContent = nom;
+    document.getElementById('img-modal-before').textContent = avant ? avant.toFixed(2) + ' €' : '';
+    document.getElementById('img-modal-after').textContent  = apres ? apres.toFixed(2) + ' €' : '';
     document.getElementById('img-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
