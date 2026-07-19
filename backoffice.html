@@ -572,7 +572,12 @@ async function syncToSupabase(cfg, indicator) {
       body: JSON.stringify(payload)
     });
 
-    if (!response.ok) throw new Error('Erreur réseau Supabase (pharmacies)');
+    
+    if (!res.ok) {
+      const errBody = await res.text();
+      console.error('Supabase pharmacies 400 detail:', errBody);
+      throw new Error('Erreur réseau Supabase');
+    }
 
     // 2. Sauvegarde des promotions dans la table "promos"
     const promosPayload = cfg.promos.map((p, i) => ({
