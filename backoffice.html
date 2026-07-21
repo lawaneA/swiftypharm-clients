@@ -552,7 +552,7 @@ function autoSave() {
 async function syncToSupabase(cfg, indicator) {
   try {
    const payload = {
-  SLUG,
+   slug: SLUG,
   nom:             cfg.pharmacy.name        || '',
   soustitre:       cfg.pharmacy.sub         || '',
   horaires:        cfg.pharmacy.horairesSemaine || {},
