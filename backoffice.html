@@ -343,15 +343,21 @@
       <div class="info-grid">
         <div class="field">
           <label>Nom de la pharmacie</label>
-          <input type="text" id="ph-name" placeholder="Pharmacie NHEAN" oninput="autoSave()">
+          <input type="text" id="ph-name" placeholder="Pharmacie DUJARDIN" oninput="autoSave()">
         </div>
+
+        <div class="field">
+          <label>Nom du Docteur en Pharmacie</label>
+          <input type="text" id="ph-docteur" placeholder="Dr. Jean DUJARDIN" oninput="autoSave()">
+        </div>
+        
         <div class="field">
           <label>Sous-titre / accroche</label>
           <input type="text" id="ph-sub" placeholder="Votre pharmacie de confiance à ( votre ville )" oninput="autoSave()">
         </div>
         <div class="field">
           <label>Téléphone</label>
-          <input type="tel" id="ph-tel" placeholder="+33 1 23 45 67 89" oninput="autoSave()">
+          <input type="tel" id="ph-tel" placeholder="01 23 45 67 89" oninput="autoSave()">
         </div>
         <div class="field">
           <label>URL Google Maps</label>
@@ -846,6 +852,7 @@ function updateAvisPreview() {
 function fillInfo(cfg) {
   const p = cfg.pharmacy || {};
   document.getElementById('ph-name').value = p.name || '';
+  document.getElementById('ph-docteur').value = p.docteur || ''; // 👈 AJOUTE CETTE LIGNE ICI
   document.getElementById('ph-sub').value  = p.sub  || '';
   document.getElementById('ph-tel').value  = p.tel  || '';
   document.getElementById('ph-maps').value = p.maps || '';
@@ -884,6 +891,7 @@ function collectInfo() {
   const bannerData = document.getElementById('banner-preview-img').src || '';
   return {
     name:      document.getElementById('ph-name').value,
+    docteur:   document.getElementById('ph-docteur').value, // 👈 AJOUTE CETTE LIGNE ICI
     sub:       document.getElementById('ph-sub').value,
     tel:       document.getElementById('ph-tel').value,
     maps:      document.getElementById('ph-maps').value,
