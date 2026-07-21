@@ -552,7 +552,7 @@ function autoSave() {
 async function syncToSupabase(cfg, indicator) {
   try {
    const payload = {
-   slug: SLUG,
+  slug: SLUG,
   nom:             cfg.pharmacy.name        || '',
   soustitre:       cfg.pharmacy.sub         || '',
   horaires:        cfg.pharmacy.horairesSemaine || {},
@@ -637,7 +637,7 @@ async function loadFromSupabase() {
           cfg.pharmacy.logoData = data.logo_base64;
           cfg.pharmacy.logo = '';
         }
-        if (data.reseaux_sociaux) cfg.pharmacy.reseaux_sociaux = data.reseaux_sociaux;
+        if (data.reseaux) cfg.pharmacy.reseaux = data.reseaux;
         if (data.horaires) cfg.pharmacy.horairesSemaine = data.horaires;
         
         localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
