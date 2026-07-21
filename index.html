@@ -1082,7 +1082,7 @@ document.getElementById('mid-icons-container').innerHTML = iconsHtml;
           </a>`;
       }
 
-      // ── FACEBOOK ── (cherche 'facebook' ou 'fb')
+     // ── FACEBOOK ── (Affichage style Instagram avec image)
       const fbObj = soc.facebook || soc.fb;
       const fbActif = fbObj?.actif ?? fbObj?.active;
       const fbUrlVal = fbObj?.url || fbObj?.val;
@@ -1091,12 +1091,12 @@ document.getElementById('mid-icons-container').innerHTML = iconsHtml;
         let fbUrl = fbUrlVal.startsWith('http') ? fbUrlVal : `https://facebook.com/${fbUrlVal}`;
         container.innerHTML += `
           <a href="${fbUrl}" target="_blank" class="social-card-item">
-            <div class="social-card-fallback" style="background:#1877f2;">📘</div>
+            <img src="facebook-icon.png" alt="Facebook" class="social-card-img" onerror="this.outerHTML='<div class=\\'social-card-fallback\\' style=\\'background:#1877f2;\\'>📘</div>'">
             <div class="social-card-txt">Retrouvez nous<br>sur Facebook !</div>
           </a>`;
       }
 
-      // ── SITE WEB ── (cherche 'website' ou 'web')
+      // ── SITE WEB ── (Affichage style Instagram avec image)
       const webObj = soc.website || soc.web;
       const webActif = webObj?.actif ?? webObj?.active;
       const webUrlVal = webObj?.url || webObj?.val;
@@ -1105,7 +1105,7 @@ document.getElementById('mid-icons-container').innerHTML = iconsHtml;
         let webUrl = webUrlVal.startsWith('http') ? webUrlVal : `https://${webUrlVal}`;
         container.innerHTML += `
           <a href="${webUrl}" target="_blank" class="social-card-item">
-            <div class="social-card-fallback" style="background:#0012ff;">🌐</div>
+            <img src="website-icon.png" alt="Site Web" class="social-card-img" onerror="this.outerHTML='<div class=\\'social-card-fallback\\' style=\\'background:#0012ff;\\'>🌐</div>'">
             <div class="social-card-txt">Visitez notre<br>Site Web !</div>
           </a>`;
       }
