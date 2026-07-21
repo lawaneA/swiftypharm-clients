@@ -950,27 +950,7 @@
         .eq('slug', 'pharmacie-nhean')
         .single();
 
-      // Dans le .then() ou après le await supabase
-const r = typeof data.reseaux === 'string'
-  ? JSON.parse(data.reseaux)
-  : (data.reseaux || {});
-
-let iconsHtml = '';
-
-if (r.google?.actif && r.google?.url)
-  iconsHtml += buildMidIcon(r.google.url, 'google-avis-icon.png', 'Notez nous sur<br>Google !');
-
-if (r.instagram?.actif && r.instagram?.url)
-  iconsHtml += buildMidIcon(r.instagram.url, 'instagram-icon.png', 'Suivez nous sur<br>Instagram !');
-
-if (r.facebook?.actif && r.facebook?.url)
-  iconsHtml += buildMidIcon(r.facebook.url, 'facebook-icon.png', 'Suivez nous sur<br>Facebook !');
-
-if (r.website?.actif && r.website?.url)
-  iconsHtml += buildMidIcon(r.website.url, 'website-icon.png', 'Visitez notre<br>site web !');
-
-document.getElementById('mid-icons-container').innerHTML = iconsHtml;
-  
+     
 
       if (error && error.code !== 'PGRST116') throw error;
       if (data && data.horaires) {
@@ -1041,6 +1021,13 @@ document.getElementById('mid-icons-container').innerHTML = iconsHtml;
       if (data.nom) document.getElementById('profile-name-display').textContent = data.nom;
       if (data.soustitre) document.getElementById('profile-sub-display').textContent = data.soustitre;
       if (data.logo_base64) document.getElementById('profile-avatar-img').src = data.logo_base64;
+
+      // 👇 AJOUTE CES 4 LIGNES POUR LE DOCTEUR 👇
+      if (data.docteur) {
+        const docEl = document.getElementById('docteur-nom');
+        if (docEl) docEl.textContent = data.docteur;
+      }
+      // 👆 FIN DE L'AJOUT 👆
 
       // 2. On lit la colonne "reseaux" (ou "reseaux_sociaux" par sécurité)
       const soc = data.reseaux || data.reseaux_sociaux || {};
