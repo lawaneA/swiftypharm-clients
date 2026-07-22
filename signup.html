@@ -177,7 +177,7 @@
     <div class="field">
       <label>Votre URL publique</label>
       <div class="slug-preview" id="slug-preview">
-        <span>swiftypharm.netlify.app/</span><span id="slug-val">votre-pharmacie</span>
+        <span>swiftypharm.fr/</span><span id="slug-val">votre-pharmacie</span>
       </div>
       <div class="hint">Généré automatiquement · modifiable plus tard</div>
     </div>
@@ -205,7 +205,7 @@ const SUPABASE_URL_BASE = 'https://twewgozdynowoieyqrcf.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3ZXdnb3pkeW5vd29pZXlxcmNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MzM4MjEsImV4cCI6MjA5OTEwOTgyMX0.p8niB1AotODvOlTg529rWz4BsPVRwHqflx5EXasgn5s';
 const sb = supabase.createClient(SUPABASE_URL_BASE, SUPABASE_ANON_KEY);
 
-const BASE_NETLIFY = 'swiftypharm.netlify.app';
+const BASE_NETLIFY = 'swiftypharm.fr';
 
 // ── Génération du slug ──
 function toSlug(str) {
@@ -330,10 +330,10 @@ async function submitSignup() {
     localStorage.setItem('swiftlink_user_email', email);
 
     // 4. Afficher l'écran succès
-    document.getElementById('success-info').innerHTML =
-      `📁 Dossier GitHub à créer :<br><strong>SwiftyPharm/${slug}</strong><br><br>` +
-      `🌐 URL publique :<br><strong>https://${BASE_NETLIFY}/${slug}</strong><br><br>` +
-      `📧 Email de confirmation envoyé à <strong>${email}</strong>`;
+      document.getElementById('success-info').innerHTML =
+    `📁 Dossier GitHub à créer :<br><strong>SwiftyPharm/${slug}</strong><br><br>` +
+    `🌐 URL publique :<br><strong>https://${BASE_NETLIFY}/${slug}/</strong><br><br>` +
+    `📧 Email de confirmation envoyé à <strong>${email}</strong>`;
 
     goScreen('screen-success');
 
