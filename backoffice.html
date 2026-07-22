@@ -500,6 +500,14 @@
 
 </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const sb = supabase.createClient(
+    'https://twewgozdynowoieyqrcf.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3ZXdnb3pkeW5vd29pZXlxcmNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MzM4MjEsImV4cCI6MjA5OTEwOTgyMX0.p8niB1AotODvOlTg529rWz4BsPVRwHqflx5EXasgn5s'
+  );
+</script>
+
 <script>
 // ═══════════════════════════════════
 //  CONSTANTS & DEFAULTS
@@ -534,7 +542,8 @@ const DEFAULTS = {
 // ═══════════════════════════════════
 const SUPABASE_URL = 'https://twewgozdynowoieyqrcf.supabase.co/rest/v1/';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3ZXdnb3pkeW5vd29pZXlxcmNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MzM4MjEsImV4cCI6MjA5OTEwOTgyMX0.p8niB1AotODvOlTg529rWz4BsPVRwHqflx5EXasgn5s';
-const SLUG = 'pharmacie-nhean';
+const params = new URLSearchParams(window.location.search);
+const SLUG = params.get('slug') || localStorage.getItem('swiftlink_slug') || 'pharmacie-nhean';
 
 let cloudSyncTimer;
 
@@ -687,9 +696,17 @@ function flashSaved() {
 // ═══════════════════════════════════
 //  AUTH
 // ═══════════════════════════════════
-function initAuth() {
-  const session = sessionStorage.getItem(SESSION_KEY);
-  if (session === 'ok') { hideLogin(); return; }
+async function initAuth() {
+  // Vérifier session Supabase d'abord
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    sessionStorage.setItem(SESSION_KEY, 'ok');
+    hideLogin();
+    return;
+  }
+  // Sinon fallback login local
+  const localSession = sessionStorage.getItem(SESSION_KEY);
+  if (localSession === 'ok') { hideLogin(); return; }
   document.getElementById('login-overlay').style.display = 'flex';
   document.getElementById('login-id').focus();
 }
@@ -714,9 +731,10 @@ function hideLogin() {
   initApp();
 }
 
-function doLogout() {
+async function doLogout() {
+  await sb.auth.signOut();
   sessionStorage.removeItem(SESSION_KEY);
-  location.reload();
+  window.location.href = '/login.html';
 }
 
 // ═══════════════════════════════════
